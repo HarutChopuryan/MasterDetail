@@ -2,15 +2,14 @@
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-namespace MasterDetail.Forms
+namespace MasterDetail.Forms.Pages
 {
     public partial class App : Application
     {
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
+            MainPage = new MasterDetailMainPage();
         }
 
         protected override void OnStart()

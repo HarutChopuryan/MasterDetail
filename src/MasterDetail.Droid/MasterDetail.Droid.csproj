@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Renderers\CircleImageRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -90,14 +91,24 @@
     <Folder Include="Resources\drawable-hdpi\" />
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
-    <Folder Include="Resources\drawable-xxxhdpi\" />
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MasterDetail.Core\MasterDetail.Core.csproj">
+      <Project>{a66304d5-f146-497f-8689-710805442550}</Project>
+      <Name>MasterDetail.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MasterDetail.Forms\MasterDetail.Forms.csproj">
       <Project>{80A3BF6E-B4F0-44D7-A4F6-AD8406228772}</Project>
       <Name>MasterDetail.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MasterDetail.UI\MasterDetail.UI.csproj">
+      <Project>{b883934a-f135-45e7-be09-94f17846d808}</Project>
+      <Name>MasterDetail.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\avatar.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
