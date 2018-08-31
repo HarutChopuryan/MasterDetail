@@ -1,27 +1,47 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
+using Grace.DependencyInjection;
+using MasterDetail.Core;
+using MasterDetail.Core.DI;
 using MasterDetail.Forms;
 using MasterDetail.Forms.Pages;
+using MasterDetail.UI;
+using Plugin.CurrentActivity;
+using Plugin.Permissions;
+using Xamarin.Forms.Platform.Android;
 
 namespace MasterDetail.Droid
 {
-    [Activity(Label = "MasterDetail", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    [Activity(Label = "MasterDetail", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true,
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    public class MainActivity : FormsAppCompatActivity
     {
+        private DependencyInjectionContainer _container;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
+
+            _container = new DependencyInjectionContainer();
+            _container.RegisterCoreDependencies()
+                .RegisterUIDependencies()
+                .RegisterFormsDependencies()
+                .RegisterDroidDependencies();
+            ServiceLocator.Create(_container);
+
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            LoadApplication(new App());
+            LoadApplication(new App(_container));
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions,
+            Permission[] grantResults)
+        {
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }
