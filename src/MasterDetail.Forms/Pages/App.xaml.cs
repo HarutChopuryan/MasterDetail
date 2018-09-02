@@ -1,5 +1,4 @@
-﻿using Grace.DependencyInjection;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -7,13 +6,10 @@ namespace MasterDetail.Forms.Pages
 {
     public partial class App : Application
     {
-        private readonly DependencyInjectionContainer _container;
-
-        public App(DependencyInjectionContainer container)
+        public App()
         {
-            _container = container;
             InitializeComponent();
-            MainPage = new NavigationPage(_container.Locate<MasterDetailMainPage>());
+            MainPage = new MasterDetailMainPage();
         }
 
         protected override void OnStart()
