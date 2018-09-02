@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
-using Android.Widget;
 using MasterDetail.Droid.Renderers;
 using MasterDetail.Forms.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Color = Android.Graphics.Color;
+using View = Android.Views.View;
 
 [assembly: ExportRenderer(typeof(CircleImage), typeof(CircleImageRenderer))]
+
 namespace MasterDetail.Droid.Renderers
 {
     public class CircleImageRenderer : ImageRenderer
@@ -24,7 +20,7 @@ namespace MasterDetail.Droid.Renderers
         {
         }
 
-        protected override bool DrawChild(Canvas canvas, global::Android.Views.View child, long drawingTime)
+        protected override bool DrawChild(Canvas canvas, View child, long drawingTime)
         {
             try
             {
@@ -52,7 +48,7 @@ namespace MasterDetail.Droid.Renderers
                     StrokeWidth = 5
                 };
                 paint.SetStyle(Paint.Style.Stroke);
-                paint.Color = global::Android.Graphics.Color.White;
+                paint.Color = Color.White;
 
                 canvas.DrawPath(path, paint);
 
@@ -65,6 +61,7 @@ namespace MasterDetail.Droid.Renderers
             {
                 System.Diagnostics.Debug.WriteLine("Unable to create circle image: " + ex);
             }
+
             return base.DrawChild(canvas, child, drawingTime);
         }
 
@@ -73,10 +70,8 @@ namespace MasterDetail.Droid.Renderers
             base.OnElementChanged(e);
 
             if (e.OldElement == null)
-            {
-                if ((int)Android.OS.Build.VERSION.SdkInt < 18)
+                if ((int) Build.VERSION.SdkInt < 18)
                     SetLayerType(LayerType.Software, null);
-            }
         }
     }
 }

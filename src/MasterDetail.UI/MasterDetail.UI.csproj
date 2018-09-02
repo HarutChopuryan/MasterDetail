@@ -5,7 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Grace" Version="6.4.1" />
+    <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
+    <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MasterDetail.Core\MasterDetail.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Base\Implementation\" />
+    <Folder Include="Main\Implementation\" />
   </ItemGroup>
 
 </Project>
