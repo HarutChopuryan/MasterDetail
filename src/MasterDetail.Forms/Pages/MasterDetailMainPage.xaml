@@ -7,12 +7,12 @@
     Title="Main Page"
     MasterBehavior="Default">
     <MasterDetailPage.Master>
-        <pages:MasterPage />
+        <pages:UserPage />
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
         <NavigationPage>
             <x:Arguments>
-                <pages:DetailPage />
+                <pages:HomePage />
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>

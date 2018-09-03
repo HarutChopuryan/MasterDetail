@@ -6,9 +6,9 @@ using Xamarin.Forms.Xaml;
 namespace MasterDetail.Forms.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MasterPage : ContentPage
+    public partial class UserPage : ContentPage
     {
-        public MasterPage()
+        public UserPage()
         {
             InitializeComponent();
         }
