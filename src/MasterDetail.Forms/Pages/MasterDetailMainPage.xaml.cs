@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using MasterDetail.UI.Main;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MasterDetail.Forms.Pages

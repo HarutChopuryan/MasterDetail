@@ -3,11 +3,16 @@
     x:Class="MasterDetail.Forms.Pages.MasterDetailMainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MasterDetail.UI.Main.Implementation;assembly=MasterDetail.UI"
     xmlns:pages="clr-namespace:MasterDetail.Forms.Pages;assembly=MasterDetail.Forms"
     Title="Main Page"
     MasterBehavior="Default">
     <MasterDetailPage.Master>
-        <pages:UserPage />
+        <pages:UserPage>
+            <x:Arguments>
+                <local:UserPageViewModel />
+            </x:Arguments>
+        </pages:UserPage>
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
         <NavigationPage>

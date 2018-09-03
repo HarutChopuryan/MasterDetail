@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MasterDetail.Forms.Pages.PhotoPage">
+<ContentPage
+    x:Class="MasterDetail.Forms.Pages.PhotoPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -22,10 +23,10 @@
             Clicked="OnPickButtonClicked"
             Text="Pick Photo" />
         <Image
-            x:Name="img"
             Grid.Row="1"
             Grid.Column="0"
-            Grid.ColumnSpan="2" />
+            Grid.ColumnSpan="2"
+            Source="{Binding ImageSource}" />
     </Grid>
     <ContentPage.ToolbarItems>
         <ToolbarItem

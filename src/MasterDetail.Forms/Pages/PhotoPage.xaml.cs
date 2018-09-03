@@ -3,15 +3,20 @@ using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using MasterDetail.UI.Main;
 
 namespace MasterDetail.Forms.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PhotoPage : ContentPage
     {
-        public PhotoPage()
+        private readonly IUserPageViewModel _viewModel;
+
+        public PhotoPage(IUserPageViewModel viewModel)
         {
+            _viewModel = viewModel;
             InitializeComponent();
+            BindingContext = _viewModel;
         }
 
         private async void OnTakeButtonClicked(object sender, EventArgs e)
@@ -23,6 +28,18 @@ namespace MasterDetail.Forms.Pages
                     await DisplayAlert("No Camera", ":( No camera available.", "OK");
                     return;
                 }
+
+                StoreCameraMediaOptions imageProperties = new StoreCameraMediaOptions()
+                {
+                    Directory = "Test",
+                    SaveToAlbum = true,
+                    Name = $"{DateTime.Now:dd.MM.yyyy_hh.mm.ss}.jpg",
+                    CompressionQuality = 75,
+                    CustomPhotoSize = 50,
+                    PhotoSize = PhotoSize.MaxWidthHeight,
+                    MaxWidthHeight = 2000,
+                    DefaultCamera = CameraDevice.Front
+                };
 
                 var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
                 {
@@ -41,7 +58,7 @@ namespace MasterDetail.Forms.Pages
 
                 await DisplayAlert("File Location", file.Path, "OK");
 
-                img.Source = ImageSource.FromStream(() =>
+                _viewModel.ImageSource = ImageSource.FromStream(() =>
                 {
                     var stream = file.GetStream();
                     file.Dispose();
@@ -67,7 +84,7 @@ namespace MasterDetail.Forms.Pages
             if (file == null)
                 return;
 
-            img.Source = ImageSource.FromStream(() =>
+            _viewModel.ImageSource = ImageSource.FromStream(() =>
             {
                 var stream = file.GetStream();
                 file.Dispose();
@@ -75,8 +92,9 @@ namespace MasterDetail.Forms.Pages
             });
         }
 
-        private void OnPhotoDoneClicked(object sender, EventArgs e)
+        private async void OnPhotoDoneClicked(object sender, EventArgs e)
         {
+            await Navigation.PopAsync();
         }
     }
 }

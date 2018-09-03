@@ -7,6 +7,8 @@ using MasterDetail.Core.DI;
 using MasterDetail.Forms;
 using MasterDetail.Forms.Pages;
 using MasterDetail.UI;
+using MasterDetail.UI.Main;
+using MasterDetail.UI.Main.Implementation;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
 using Xamarin.Forms.Platform.Android;
@@ -25,7 +27,7 @@ namespace MasterDetail.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
-
+            
             _container = new DependencyInjectionContainer();
             _container.RegisterCoreDependencies()
                 .RegisterUIDependencies()

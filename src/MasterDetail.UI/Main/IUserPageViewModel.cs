@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace MasterDetail.UI.Main
 {
-    interface IUserPageViewModel
+    public interface IUserPageViewModel
     {
-        string ImageSource { get; set; }
+        ImageSource ImageSource { get; set; }
     }
 }

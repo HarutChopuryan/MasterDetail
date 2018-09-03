@@ -1,5 +1,6 @@
 ﻿using MasterDetail.UI.Base.Implementation;
 using PropertyChanged;
+using Xamarin.Forms;
 
 
 namespace MasterDetail.UI.Main.Implementation
@@ -7,6 +8,6 @@ namespace MasterDetail.UI.Main.Implementation
     [AddINotifyPropertyChangedInterface]
     public class UserPageViewModel : BaseBindableObject, IUserPageViewModel
     {
-        public string ImageSource { get; set; }
+        public ImageSource ImageSource { get; set; } = ImageSource.FromFile("avatar.jpg");
     }
 }

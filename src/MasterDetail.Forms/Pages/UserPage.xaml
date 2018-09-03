@@ -15,7 +15,7 @@
         <controls:CircleImage
             Grid.Row="0"
             HeightRequest="200"
-            Source="avatar.jpg"
+            Source="{Binding ImageSource}"
             WidthRequest="200" />
         <Button
             Grid.Row="0"
