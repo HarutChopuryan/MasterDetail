@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using MasterDetail.Core.DI;
 using MasterDetail.UI.Main;
 using Xamarin.Forms;
@@ -20,8 +21,7 @@ namespace MasterDetail.Forms.Pages
 
         private void OnMasterImgEditClicked(object sender, EventArgs e)
         {
-            var photoPage = ServiceLocator.Instance.Locate<PhotoPage>();
-            Navigation.PushAsync(photoPage);
+            PhotoButtonsStackLayout.IsVisible = !PhotoButtonsStackLayout.IsVisible;
         }
     }
 }
