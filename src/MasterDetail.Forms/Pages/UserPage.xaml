@@ -30,7 +30,6 @@
             x:Name="PhotoButtonsStackLayout"
             Grid.Row="1"
             HorizontalOptions="CenterAndExpand"
-            IsVisible="False"
             Orientation="Horizontal">
             <Button Command="{Binding TakeCommand}" Text="Take Photo" />
             <Button Command="{Binding PickCommand}" Text="Pick Photo" />

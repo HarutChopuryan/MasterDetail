@@ -14,7 +14,7 @@ namespace MasterDetail.Forms.Pages
         {
             _container = container;
             InitializeComponent();
-            MainPage = new NavigationPage(_container.Locate<MasterDetailMainPage>());
+            MainPage = new NavigationPage(_container.Locate<LoginPage>());
         }
 
         protected override void OnStart()

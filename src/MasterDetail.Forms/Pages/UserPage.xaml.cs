@@ -19,6 +19,12 @@ namespace MasterDetail.Forms.Pages
             BindingContext = _viewModel;
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            PhotoButtonsStackLayout.IsVisible = false;
+        }
+
         private void OnMasterImgEditClicked(object sender, EventArgs e)
         {
             PhotoButtonsStackLayout.IsVisible = !PhotoButtonsStackLayout.IsVisible;
