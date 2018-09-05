@@ -38,19 +38,19 @@
             Grid.Row="2"
             FontSize="30"
             HorizontalOptions="CenterAndExpand"
-            Text="Name"
+            Text="{Binding Name}"
             VerticalOptions="CenterAndExpand" />
         <Label
             Grid.Row="3"
             FontSize="30"
             HorizontalOptions="CenterAndExpand"
-            Text="Surname"
+            Text="{Binding Surname}"
             VerticalOptions="CenterAndExpand" />
         <Label
             Grid.Row="4"
             FontSize="30"
             HorizontalOptions="CenterAndExpand"
-            Text="Email"
+            Text="{Binding Email}"
             VerticalOptions="CenterAndExpand" />
     </Grid>
 </ContentPage>

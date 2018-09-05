@@ -16,6 +16,12 @@ namespace MasterDetail.UI.Main.Implementation
             PickCommand = new PickCommand(this);
         }
 
+        public string Name { get; set; }
+
+        public string Surname { get; set; }
+
+        public string Email { get; set; }
+
         public ImageSource ImageSource { get; set; } = ImageSource.FromFile("avatar.jpg");
 
         public IAsyncCommand TakeCommand { get; set; }
