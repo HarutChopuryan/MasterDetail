@@ -17,7 +17,7 @@
             Grid.Row="0"
             Aspect="AspectFill"
             HeightRequest="250"
-            Source="{Binding ImageSource}" />
+            Source="{Binding AccountImageSource}" />
         <Button
             x:Name="EditImg"
             Grid.Row="0"

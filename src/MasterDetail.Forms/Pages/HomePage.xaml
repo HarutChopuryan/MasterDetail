@@ -19,9 +19,12 @@
                             Margin="10,2,10,2"
                             Orientation="Horizontal"
                             Spacing="10">
-                            <Image Source="{Binding ImageSource}" />
+                            <Image
+                                HeightRequest="60"
+                                Source="{Binding ImageSource}"
+                                WidthRequest="60" />
                             <Label
-                                FontSize="20"
+                                FontSize="15"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding ImageName}"
                                 VerticalTextAlignment="Center" />
