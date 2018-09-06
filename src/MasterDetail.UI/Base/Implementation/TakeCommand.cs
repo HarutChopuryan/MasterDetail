@@ -53,7 +53,7 @@ namespace MasterDetail.UI.Base.Implementation
                 if (file == null)
                     return false;
 
-                _viewModel.ImageSource = ImageSource.FromStream(() =>
+                _viewModel.AccountImageSource = ImageSource.FromStream(() =>
                 {
                     var stream = file.GetStream();
                     file.Dispose();

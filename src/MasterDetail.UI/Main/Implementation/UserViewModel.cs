@@ -12,7 +12,7 @@ namespace MasterDetail.UI.Main.Implementation
     {
         public UserViewModel()
         {
-            ImgItems = new ObservableCollection<string>();
+            ImgItems = new ObservableCollection<UserImagesViewModel>();
             TakeCommand = new TakeCommand(this);
             PickCommand = new PickCommand(this);
             AddCommand = new AddCommand(this);
@@ -24,13 +24,13 @@ namespace MasterDetail.UI.Main.Implementation
 
         public string Email { get; set; }
 
-        public ImageSource ImageSource { get; set; } = "avatar.jpg";
+        public ImageSource AccountImageSource { get; set; } = "avatar.jpg";
 
         public IAsyncCommand TakeCommand { get; set; }
 
         public IAsyncCommand PickCommand { get; set; }
 
-        public IList<string> ImgItems { get; set; }
+        public IList<UserImagesViewModel> ImgItems { get; set; }
 
         public IAsyncCommand AddCommand { get; set; }
     }

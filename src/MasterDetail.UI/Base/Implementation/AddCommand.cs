@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Dropbox.Api;
 using Dropbox.Api.Files;
 using MasterDetail.UI.Main;
+using MasterDetail.UI.Main.Implementation;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Xamarin.Forms;
@@ -32,18 +33,26 @@ namespace MasterDetail.UI.Base.Implementation
             if (file == null)
                 return false;
 
-            _viewModel.ImgItems.Add(ImageSource.FromStream(() =>
+            ImageSource source = ImageSource.FromStream(() =>
             {
                 var stream = file.GetStream();
                 file.Dispose();
                 return stream;
-            }).ToString());
+            });
+
+            string imageName = file.Path.Substring(file.Path.LastIndexOf('/') + 1);
+
+            _viewModel.ImgItems.Add(new UserImagesViewModel()
+            {
+                ImageSource = source,
+                ImageName = imageName
+            });
 
             var _accessKey = "Qg1P2iJ2DrAAAAAAAAAADLjGU5TlXqZgqTbejadackNzMBEkVrWO86BPK5qLNrX9";
 
             using (var client = new DropboxClient(_accessKey))
             {
-                var ci = new CommitInfo($"/{file.Path.Substring(file.Path.LastIndexOf('/') + 1)}");
+                var ci = new CommitInfo($"/{imageName}");
                 var resp = await client.Files.UploadAsync(ci, file.GetStream());
             }
 
