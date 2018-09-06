@@ -9,11 +9,11 @@ using Xamarin.Forms;
 
 namespace MasterDetail.UI.Base.Implementation
 {
-    public class PickCommand : AsyncCommand
+    public class AddCommand : AsyncCommand
     {
         private readonly IUserViewModel _viewModel;
 
-        public PickCommand(IUserViewModel viewModel)
+        public AddCommand(IUserViewModel viewModel)
         {
             _viewModel = viewModel;
         }
@@ -32,12 +32,12 @@ namespace MasterDetail.UI.Base.Implementation
             if (file == null)
                 return false;
 
-            _viewModel.ImageSource = ImageSource.FromStream(() =>
+            _viewModel.ImgItems.Add(ImageSource.FromStream(() =>
             {
                 var stream = file.GetStream();
                 file.Dispose();
                 return stream;
-            });
+            }).ToString());
 
             var _accessKey = "Qg1P2iJ2DrAAAAAAAAAADLjGU5TlXqZgqTbejadackNzMBEkVrWO86BPK5qLNrX9";
 

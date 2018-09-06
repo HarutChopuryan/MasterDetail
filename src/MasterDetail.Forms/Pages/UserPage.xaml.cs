@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using Dropbox.Api;
+using Dropbox.Api.Files;
+using Dropbox.Api.Stone;
 using MasterDetail.UI.Main;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -10,9 +14,9 @@ namespace MasterDetail.Forms.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UserPage : ContentPage
     {
-        private readonly IUserPageViewModel _viewModel;
+        private readonly IUserViewModel _viewModel;
 
-        public UserPage(IUserPageViewModel viewModel)
+        public UserPage(IUserViewModel viewModel)
         {
             _viewModel = viewModel;
             InitializeComponent();

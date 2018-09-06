@@ -10,14 +10,18 @@
     <MasterDetailPage.Master>
         <pages:UserPage>
             <x:Arguments>
-                <local:UserPageViewModel />
+                <local:UserViewModel />
             </x:Arguments>
         </pages:UserPage>
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
         <NavigationPage>
             <x:Arguments>
-                <pages:HomePage />
+                <pages:HomePage>
+                    <x:Arguments>
+                        <local:UserViewModel />
+                    </x:Arguments>
+                </pages:HomePage>
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>

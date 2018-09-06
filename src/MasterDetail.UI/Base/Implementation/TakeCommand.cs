@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Dropbox.Api;
+using Dropbox.Api.Files;
 using MasterDetail.UI.Main;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
@@ -10,9 +12,9 @@ namespace MasterDetail.UI.Base.Implementation
 {
     public class TakeCommand : AsyncCommand
     {
-        private readonly IUserPageViewModel _viewModel;
+        private readonly IUserViewModel _viewModel;
 
-        public TakeCommand(IUserPageViewModel viewModel)
+        public TakeCommand(IUserViewModel viewModel)
         {
             _viewModel = viewModel;
         }
@@ -57,6 +59,14 @@ namespace MasterDetail.UI.Base.Implementation
                     file.Dispose();
                     return stream;
                 });
+
+                var _accessKey = "Qg1P2iJ2DrAAAAAAAAAADLjGU5TlXqZgqTbejadackNzMBEkVrWO86BPK5qLNrX9";
+
+                using (var client = new DropboxClient(_accessKey))
+                {
+                    var ci = new CommitInfo($"/{file.Path.Substring(file.Path.LastIndexOf('/') + 1)}");
+                    var resp = await client.Files.UploadAsync(ci, file.GetStream());
+                }
             }
 
             return true;
