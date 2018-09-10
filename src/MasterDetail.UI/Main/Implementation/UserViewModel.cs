@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
 using MasterDetail.UI.Base;
 using MasterDetail.UI.Base.Implementation;
 using PropertyChanged;
@@ -12,7 +13,9 @@ namespace MasterDetail.UI.Main.Implementation
     {
         public UserViewModel()
         {
+            ImgDetailsCommand = new ImgDetailsCommand(this);
             ImgItems = new ObservableCollection<UserImagesViewModel>();
+            ImgDetails = new SelectedItemDetailsViewModel();
             TakeCommand = new TakeCommand(this);
             PickCommand = new PickCommand(this);
             AddCommand = new AddCommand(this);
@@ -33,5 +36,9 @@ namespace MasterDetail.UI.Main.Implementation
         public IList<UserImagesViewModel> ImgItems { get; set; }
 
         public IAsyncCommand AddCommand { get; set; }
+
+        public ISelectedItemDetailsViewModel ImgDetails { get; set; }
+
+        public IAsyncCommand ImgDetailsCommand { get; set; }
     }
 }

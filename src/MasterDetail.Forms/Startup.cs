@@ -1,4 +1,6 @@
 ﻿using Grace.DependencyInjection;
+using Grace.DependencyInjection.Lifestyle;
+using MasterDetail.Forms.Pages;
 
 namespace MasterDetail.Forms
 {
@@ -7,6 +9,7 @@ namespace MasterDetail.Forms
         public static DependencyInjectionContainer RegisterFormsDependencies(
             this DependencyInjectionContainer container)
         {
+            container.Add(block => block.Export<SelectedItemDetailsPage>().UsingLifestyle(new SingletonLifestyle()));
             return container;
         }
     }

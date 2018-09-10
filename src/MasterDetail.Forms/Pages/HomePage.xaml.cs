@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Dropbox.Api;
 using Dropbox.Api.Files;
+using MasterDetail.Core.DI;
 using MasterDetail.UI.Main;
 using MasterDetail.UI.Main.Implementation;
 using Xamarin.Forms;
@@ -20,33 +22,41 @@ namespace MasterDetail.Forms.Pages
             BindingContext = _viewModel;
         }
 
-        //protected override async void OnAppearing()
-        //{
-        //    base.OnAppearing();
-        //    var _accessKey = "Qg1P2iJ2DrAAAAAAAAAADLjGU5TlXqZgqTbejadackNzMBEkVrWO86BPK5qLNrX9";
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
 
-        //    using (var client = new DropboxClient(_accessKey))
-        //    {
-        //        var list = await client.Files.ListFolderAsync(string.Empty);
+            if (_viewModel.ImgItems != null && _viewModel.ImgItems.Count == 0)
+            {
+                var _accessKey = "Qg1P2iJ2DrAAAAAAAAAADLjGU5TlXqZgqTbejadackNzMBEkVrWO86BPK5qLNrX9";
 
-        //        foreach (var item in list.Entries)
-        //        {
-        //            if (!item.IsFile || !item.Name.EndsWith(".jpg") && !item.Name.EndsWith(".png")) continue;
+                using (var client = new DropboxClient(_accessKey))
+                {
+                    var list = await client.Files.ListFolderAsync(string.Empty);
 
-        //            Stream s = new MemoryStream();
-        //            var resp = await client.Files.DownloadAsync("/nature.jpg");
-        //            resp.GetContentAsStreamAsync().Result.CopyTo(s);
-        //            Stream ds = await resp.GetContentAsStreamAsync();
-        //            await ds.CopyToAsync(s);
-        //            ds.Dispose();
+                    foreach (var item in list.Entries)
+                    {
+                        if (!item.IsFile || !item.Name.EndsWith(".jpg") && !item.Name.EndsWith(".png")) continue;
 
-        //            _viewModel.ImgItems.Add(new UserImagesViewModel
-        //            {
-        //                ImageSource = ImageSource.FromStream(()=>s),
-        //                ImageName = item.Name
-        //            });
-        //        }
-        //    }
-        //}
+                        var result = await client.Files.GetTemporaryLinkAsync($"/{item.Name}");
+                        var url = result.Link;
+
+                        _viewModel.ImgItems.Add(new UserImagesViewModel
+                        {
+                            ImageSource = ImageSource.FromUri(new Uri(url)),
+                            ImageName = item.Name
+                        });
+                    }
+                }
+            }
+        }
+
+        private async void OnItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            await _viewModel.ImgDetailsCommand.ExecuteAsync(sender);
+            var selectedItemDetailPage = ServiceLocator.Instance.Locate<SelectedItemDetailsPage>();
+            selectedItemDetailPage.ViewModel = _viewModel.ImgDetails;
+            await Navigation.PushAsync(selectedItemDetailPage);
+        }
     }
 }

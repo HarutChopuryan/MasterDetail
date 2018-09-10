@@ -4,11 +4,14 @@
     x:Class="MasterDetail.Forms.Pages.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     Title="Detail Page">
     <AbsoluteLayout>
         <ListView
+            x:Name="ListView"
             AbsoluteLayout.LayoutBounds="0,0,1,1"
             AbsoluteLayout.LayoutFlags="All"
+            ItemTapped="OnItemTapped"
             ItemsSource="{Binding ImgItems}"
             RowHeight="70"
             SeparatorVisibility="None">
@@ -19,7 +22,7 @@
                             Margin="10,2,10,2"
                             Orientation="Horizontal"
                             Spacing="10">
-                            <Image
+                            <ffimageloading:CachedImage
                                 HeightRequest="60"
                                 Source="{Binding ImageSource}"
                                 WidthRequest="60" />

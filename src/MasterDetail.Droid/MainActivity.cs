@@ -35,6 +35,7 @@ namespace MasterDetail.Droid
                 .RegisterDroidDependencies();
             ServiceLocator.Create(_container);
 
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App(_container));

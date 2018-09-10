@@ -22,5 +22,9 @@ namespace MasterDetail.UI.Main
         IList<UserImagesViewModel> ImgItems { get; set; }
 
         IAsyncCommand AddCommand { get; set; }
+
+        ISelectedItemDetailsViewModel ImgDetails { get; set; }
+
+        IAsyncCommand ImgDetailsCommand { get; set; }
     }
 }
