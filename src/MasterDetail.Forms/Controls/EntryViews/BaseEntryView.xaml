@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<entryViews:BaseValidateableView
+    x:Class="MasterDetail.Forms.Controls.EntryViews.BaseEntryView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MasterDetail.Forms.Controls;assembly=MasterDetail.Forms"
+    xmlns:entryViews="clr-namespace:MasterDetail.Forms.Controls.EntryViews;assembly=MasterDetail.Forms"
+    x:Name="This">
+    <entryViews:BaseValidateableView.Content>
+        <StackLayout Padding="0" Spacing="0">
+            <StackLayout.Children>
+                <StackLayout Spacing="0">
+                    <Label
+                        x:Name="TitleLabel"
+                        Margin="4,0,0,0"
+                        IsVisible="False"
+                        Style="{StaticResource FormFieldLabelStyle}"
+                        WidthRequest="{Binding TitleWidth, Source={x:Reference This}}" />
+                    <ContentView
+                        x:Name="Container"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand" />
+                </StackLayout>
+                <controls:StackListView
+                    x:Name="ValidationStack"
+                    BindingContext="{x:Reference This}"
+                    HorizontalOptions="End"
+                    IsVisible="{Binding Errors, Converter={StaticResource VisibilityConverter}}"
+                    ItemSpacing="2"
+                    Items="{Binding Errors}"
+                    Limit="-1"
+                    VerticalOptions="Start">
+                    <controls:StackListView.ItemTemplate>
+                        <DataTemplate>
+                            <Label
+                                FontSize="12"
+                                HorizontalTextAlignment="End"
+                                Text="{Binding ErrorMessage}"
+                                TextColor="Red" />
+                        </DataTemplate>
+                    </controls:StackListView.ItemTemplate>
+                </controls:StackListView>
+            </StackLayout.Children>
+        </StackLayout>
+    </entryViews:BaseValidateableView.Content>
+</entryViews:BaseValidateableView>

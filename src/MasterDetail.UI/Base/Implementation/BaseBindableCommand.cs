@@ -8,13 +8,13 @@ namespace MasterDetail.UI.Base.Implementation
     {
         private bool _canExecute;
 
-        public event EventHandler CanExecuteChanged;
-
         protected BaseBindableCommand(bool canExecute = true)
         {
             _canExecute = canExecute;
             IsExecutable = canExecute;
         }
+
+        public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
         {
@@ -22,16 +22,16 @@ namespace MasterDetail.UI.Base.Implementation
         }
 
         public abstract void Execute(object parameter = null);
-        
+
+        public bool IsExecutable { get; private set; }
+
         protected void SetCanExecute(bool canExecute)
         {
             _canExecute = IsExecutable = canExecute;
-            EventHandler canExecuteChanged = CanExecuteChanged;
+            var canExecuteChanged = CanExecuteChanged;
             if (canExecuteChanged == null) return;
-            EventArgs empty = EventArgs.Empty;
+            var empty = EventArgs.Empty;
             canExecuteChanged(this, empty);
         }
-
-        public bool IsExecutable { get; private set; }
     }
 }

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="MasterDetail.Forms.Pages.DropBoxFilesPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    Title="Detail Page">
+    <AbsoluteLayout>
+        <ListView
+            x:Name="ListView"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            ItemTapped="OnItemTapped"
+            ItemsSource="{Binding ImgItems}"
+            RowHeight="70"
+            SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout
+                            Margin="10,2,10,2"
+                            Orientation="Horizontal"
+                            Spacing="10">
+                            <ffimageloading:CachedImage
+                                HeightRequest="60"
+                                Source="{Binding ImageSource}"
+                                WidthRequest="60" />
+                            <Label
+                                FontSize="15"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding ImageName}"
+                                VerticalTextAlignment="Center" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button
+            AbsoluteLayout.LayoutBounds="0.95,0.95,70,70"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            BackgroundColor="Transparent"
+            Command="{Binding AddCommand}"
+            Image="add.png" />
+    </AbsoluteLayout>
+</ContentPage>

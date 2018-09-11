@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MasterDetail.UI.Base.Implementation;
+﻿using MasterDetail.UI.Base.Implementation;
 using PropertyChanged;
 using Xamarin.Forms;
 

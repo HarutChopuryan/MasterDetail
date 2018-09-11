@@ -10,6 +10,7 @@ namespace MasterDetail.Forms
             this DependencyInjectionContainer container)
         {
             container.Add(block => block.Export<SelectedItemDetailsPage>().UsingLifestyle(new SingletonLifestyle()));
+            container.Add(block => block.Export<MapPage>().UsingLifestyle(new SingletonLifestyle()));
             return container;
         }
     }

@@ -12,6 +12,7 @@ namespace MasterDetail.UI
             container.Add(block => block.Export<UserViewModel>().As<IUserViewModel>().UsingLifestyle(new SingletonLifestyle()));
             container.Add(block => block.Export<UserImagesViewModel>().As<IUserImagesViewModel>().UsingLifestyle(new SingletonLifestyle()));
             container.Add(block => block.Export<SelectedItemDetailsViewModel>().As<ISelectedItemDetailsViewModel>().UsingLifestyle(new SingletonLifestyle()));
+            container.Add(block => block.Export<CountryPickerViewModel>().As<ICountryPickerViewModel>().UsingLifestyle(new SingletonLifestyle()));
             return container;
         }
     }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MasterDetail.UI.Base;
-
-namespace MasterDetail.UI.Main
+﻿namespace MasterDetail.UI.Main
 {
     public interface ISelectedItemDetailsViewModel
     {

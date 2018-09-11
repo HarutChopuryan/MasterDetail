@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MasterDetail.Forms.Pages.CountryPickerPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:MasterDetail.Forms.Converters;assembly=MasterDetail.Forms"
+    xmlns:entryViews="clr-namespace:MasterDetail.Forms.Controls.EntryViews;assembly=MasterDetail.Forms">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:VisibilityConverter x:Key="visibilityConverter" />
+            <converters:PlaceholderVisibilityConverter x:Key="placeholderVisibilityConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <SearchBar
+            x:Name="searchBar"
+            Grid.Row="0"
+            TextChanged="SearchBar_OnTextChanged" />
+        <ActivityIndicator
+            Grid.Row="1"
+            HorizontalOptions="Center"
+            IsRunning="{Binding LoadCountriesCommand.IsBusy}"
+            IsVisible="{Binding LoadCountriesCommand.IsBusy}"
+            VerticalOptions="Center"
+            Color="DarkGray" />
+        <ListView
+            x:Name="listView"
+            Grid.Row="1"
+            ItemsSource="{Binding Countries}"
+            SelectedItem="{Binding SelectedCountry, Mode=TwoWay}"
+            SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding .}" TextColor="Black" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Label
+            Grid.Row="1"
+            HorizontalOptions="CenterAndExpand"
+            IsVisible="{Binding Countries, Converter={StaticResource placeholderVisibilityConverter}}"
+            Text="{Binding SearchNotFound}"
+            VerticalOptions="CenterAndExpand" />
+        <entryViews:FailureView
+            Grid.Row="1"
+            HorizontalOptions="Center"
+            IsVisible="{Binding Path=LoadCountriesCommand.FailureMessage, Converter={StaticResource visibilityConverter}}"
+            Message="{Binding LoadCountriesCommand.FailureMessage}"
+            TryAgainCommand="{Binding LoadCountriesCommand}"
+            VerticalOptions="Center" />
+    </Grid>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Clicked="OnDoneClicked"
+            Order="Default"
+            Text="Done" />
+    </ContentPage.ToolbarItems>
+</ContentPage>

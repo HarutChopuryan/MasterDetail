@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using PropertyChanged;
@@ -23,12 +21,13 @@ namespace MasterDetail.UI.Base.Implementation
         {
             await ExecuteAsync(parameter);
         }
-        
+
         public bool IsBusy { get; private set; }
         public string FailureMessage { get; protected set; }
         public bool IsSuccessful { get; private set; }
-        
-        public virtual async Task ExecuteAsync(object parameter = null, CancellationToken token = default(CancellationToken))
+
+        public virtual async Task ExecuteAsync(object parameter = null,
+            CancellationToken token = default(CancellationToken))
         {
             if (IsBusy) return;
             //Reset the state of the command
@@ -49,9 +48,10 @@ namespace MasterDetail.UI.Base.Implementation
                 IsBusy = false;
             }
         }
-        
-        protected abstract Task<bool> ExecuteCoreAsync(object parameter = null, CancellationToken token = default(CancellationToken));
-        
+
+        protected abstract Task<bool> ExecuteCoreAsync(object parameter = null,
+            CancellationToken token = default(CancellationToken));
+
         protected virtual void HandleException(Exception exception)
         {
             FailureMessage = exception.Message;

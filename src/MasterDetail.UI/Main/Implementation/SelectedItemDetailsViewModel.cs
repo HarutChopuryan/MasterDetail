@@ -1,5 +1,4 @@
-﻿using MasterDetail.UI.Base;
-using MasterDetail.UI.Base.Implementation;
+﻿using MasterDetail.UI.Base.Implementation;
 using PropertyChanged;
 
 namespace MasterDetail.UI.Main.Implementation

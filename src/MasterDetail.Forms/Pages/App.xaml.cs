@@ -1,4 +1,6 @@
 ﻿using Grace.DependencyInjection;
+using Grace.DependencyInjection.Lifestyle;
+using MasterDetail.Core.DI;
 using MasterDetail.UI.Main;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

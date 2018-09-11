@@ -2,6 +2,23 @@
 <Application
     x:Class="MasterDetail.Forms.Pages.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <Application.Resources />
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:MasterDetail.Forms.Converters;assembly=MasterDetail.Forms">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <converters:VisibilityConverter x:Key="VisibilityConverter" />
+
+            <Style x:Key="FormFieldLabelStyle" TargetType="Label">
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+            </Style>
+
+            <x:Double x:Key="EntryHeight">50</x:Double>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

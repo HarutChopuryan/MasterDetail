@@ -1,46 +1,101 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage
     x:Class="MasterDetail.Forms.Pages.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    Title="Detail Page">
-    <AbsoluteLayout>
-        <ListView
-            x:Name="ListView"
-            AbsoluteLayout.LayoutBounds="0,0,1,1"
-            AbsoluteLayout.LayoutFlags="All"
-            ItemTapped="OnItemTapped"
-            ItemsSource="{Binding ImgItems}"
-            RowHeight="70"
-            SeparatorVisibility="None">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout
-                            Margin="10,2,10,2"
-                            Orientation="Horizontal"
-                            Spacing="10">
-                            <ffimageloading:CachedImage
-                                HeightRequest="60"
-                                Source="{Binding ImageSource}"
-                                WidthRequest="60" />
-                            <Label
-                                FontSize="15"
-                                HorizontalTextAlignment="Center"
-                                Text="{Binding ImageName}"
-                                VerticalTextAlignment="Center" />
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Button
-            AbsoluteLayout.LayoutBounds="0.95,0.95,70,70"
-            AbsoluteLayout.LayoutFlags="PositionProportional"
-            BackgroundColor="Transparent"
-            Command="{Binding AddCommand}"
-            Image="add.png" />
-    </AbsoluteLayout>
+    xmlns:entryViews="clr-namespace:MasterDetail.Forms.Controls.EntryViews;assembly=MasterDetail.Forms">
+    <ScrollView Padding="5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <entryViews:EntryView
+                Title="First Name"
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Text="{Binding FirstName, Mode=TwoWay}"
+                ValidationId="FirstName" />
+            <entryViews:EntryView
+                Title="Last Name"
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Text="{Binding LastName, Mode=TwoWay}"
+                ValidationId="LastName" />
+            <entryViews:DatePickerView
+                Title="Birth Date"
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="0" />
+            <entryViews:PickerView
+                Title="Gender"
+                Grid.Row="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                ItemsSource="{Binding Gender, Mode=TwoWay}" />
+            <entryViews:EntryView
+                Title="Passport No"
+                Grid.Row="4"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Text="{Binding PassportN, Mode=TwoWay}"
+                ValidationId="PassportN" />
+            <entryViews:EntryView
+                Title="Address"
+                Grid.Row="5"
+                Grid.Column="0"
+                Text="{Binding Address, Mode=TwoWay}"
+                ValidationId="Address" />
+            <Button
+                Grid.Row="5"
+                Grid.Column="1"
+                BackgroundColor="Transparent"
+                Clicked="OnLocateClicked"
+                HeightRequest="30"
+                HorizontalOptions="Start"
+                Image="location.png"
+                VerticalOptions="Start"
+                WidthRequest="25" />
+            <entryViews:CountryPicker
+                Title="Country"
+                Grid.Row="6"
+                Grid.Column="0"
+                Text="{Binding Country, Mode=TwoWay}"
+                ValidationId="Country" />
+            <entryViews:EntryView
+                Title="City"
+                Grid.Row="7"
+                Grid.Column="0"
+                Text="{Binding City, Mode=TwoWay}" />
+            <entryViews:EntryView
+                Title="Zip Code"
+                Grid.Row="8"
+                Grid.Column="0"
+                Text="{Binding ZipCode, Mode=TwoWay}"
+                ValidationId="ZipCode" />
+            <Button
+                Grid.Row="9"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Clicked="OnDropBoxButtonClicked"
+                HorizontalOptions="CenterAndExpand"
+                Text="Dropbox Images"
+                VerticalOptions="CenterAndExpand" />
+        </Grid>
+    </ScrollView>
 </ContentPage>

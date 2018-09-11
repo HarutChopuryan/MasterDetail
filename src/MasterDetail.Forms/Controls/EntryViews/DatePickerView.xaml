@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout
+    x:Class="MasterDetail.Forms.Controls.EntryViews.DatePickerView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="This"
+    Padding="0"
+    HeightRequest="{StaticResource EntryHeight}"
+    Spacing="0">
+    <Label
+        Margin="4,0,0,0"
+        Style="{StaticResource FormFieldLabelStyle}"
+        Text="{Binding Title, Source={x:Reference This}}"
+        WidthRequest="{Binding TitleWidth, Source={x:Reference This}}" />
+    <DatePicker HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+</StackLayout>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MasterDetail.Forms.Pages.MapPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <AbsoluteLayout>
+        <ContentView
+            x:Name="MainContent"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All" />
+        <Image
+            AbsoluteLayout.LayoutBounds="0.5,0.390625,70,70"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            Source="geolocation.png" />
+    </AbsoluteLayout>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Clicked="OnMapDoneClicked" Text="Done" />
+    </ContentPage.ToolbarItems>
+</ContentPage>
