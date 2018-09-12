@@ -23,30 +23,7 @@ namespace MasterDetail.Forms.Pages
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-
-            if (_viewModel.ImgItems != null && _viewModel.ImgItems.Count == 0)
-            {
-                var _accessKey = "Qg1P2iJ2DrAAAAAAAAAADLjGU5TlXqZgqTbejadackNzMBEkVrWO86BPK5qLNrX9";
-
-                using (var client = new DropboxClient(_accessKey))
-                {
-                    var list = await client.Files.ListFolderAsync(string.Empty);
-
-                    foreach (var item in list.Entries)
-                    {
-                        if (!item.IsFile || !item.Name.EndsWith(".jpg") && !item.Name.EndsWith(".png")) continue;
-
-                        var result = await client.Files.GetTemporaryLinkAsync($"/{item.Name}");
-                        var url = result.Link;
-
-                        _viewModel.ImgItems.Add(new UserImagesViewModel
-                        {
-                            ImageSource = ImageSource.FromUri(new Uri(url)),
-                            ImageName = item.Name
-                        });
-                    }
-                }
-            }
+            await _viewModel.LoadDropboxImagesCommand.ExecuteAsync(_viewModel);
         }
 
         private async void OnItemTapped(object sender, ItemTappedEventArgs e)
@@ -55,7 +32,10 @@ namespace MasterDetail.Forms.Pages
             var selectedItemDetailPage = ServiceLocator.Instance.Locate<SelectedItemDetailsPage>();
             selectedItemDetailPage.ViewModel = _viewModel.ImgDetails;
             if (userImagesViewModel != null)
+            {
                 selectedItemDetailPage.ViewModel.Name = userImagesViewModel.ImageName;
+                selectedItemDetailPage.ViewModel.ImageSource = userImagesViewModel.ImageSource;
+            }
             await Navigation.PushAsync(selectedItemDetailPage);
         }
     }

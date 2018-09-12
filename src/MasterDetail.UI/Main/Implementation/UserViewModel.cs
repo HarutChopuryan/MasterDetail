@@ -14,6 +14,7 @@ namespace MasterDetail.UI.Main.Implementation
     {
         public UserViewModel()
         {
+            LoadDropboxImagesCommand = new LoadDropboxImagesCommand(this);
             ImgItems = new ObservableCollection<UserImagesViewModel>();
             ImgDetails = new SelectedItemDetailsViewModel();
             TakeCommand = new TakeCommand(this);
@@ -56,6 +57,8 @@ namespace MasterDetail.UI.Main.Implementation
         public IList<UserImagesViewModel> ImgItems { get; set; }
 
         public IAsyncCommand AddCommand { get; set; }
+
+        public IAsyncCommand LoadDropboxImagesCommand { get; set; }
 
         public ISelectedItemDetailsViewModel ImgDetails { get; set; }
 

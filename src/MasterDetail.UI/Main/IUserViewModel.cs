@@ -42,6 +42,8 @@ namespace MasterDetail.UI.Main
 
         IAsyncCommand AddCommand { get; set; }
 
+        IAsyncCommand LoadDropboxImagesCommand { get; set; }
+
         ISelectedItemDetailsViewModel ImgDetails { get; set; }
     }
 }
