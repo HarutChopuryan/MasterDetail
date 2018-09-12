@@ -17,5 +17,7 @@ namespace MasterDetail.UI.Main.Implementation
         public string Camera { get; set; } = "Camera";
 
         public string Date { get; set; } = "Date";
+
+        public string Name { get;  set; }
     }
 }

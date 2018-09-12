@@ -13,5 +13,7 @@
         string Camera { get; set; }
 
         string Date { get; set; }
+
+        string Name { get; set; }
     }
 }

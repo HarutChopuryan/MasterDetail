@@ -43,7 +43,5 @@ namespace MasterDetail.UI.Main
         IAsyncCommand AddCommand { get; set; }
 
         ISelectedItemDetailsViewModel ImgDetails { get; set; }
-
-        IAsyncCommand ImgDetailsCommand { get; set; }
     }
 }

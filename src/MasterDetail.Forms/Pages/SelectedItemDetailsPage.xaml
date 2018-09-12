@@ -4,29 +4,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <StackLayout>
-        <Label
-            HorizontalOptions="CenterAndExpand"
-            Text="{Binding Path}"
-            VerticalOptions="CenterAndExpand" />
-        <Label
-            HorizontalOptions="CenterAndExpand"
-            Text="{Binding Type}"
-            VerticalOptions="CenterAndExpand" />
-        <Label
-            HorizontalOptions="CenterAndExpand"
-            Text="{Binding Size}"
-            VerticalOptions="CenterAndExpand" />
-        <Label
-            HorizontalOptions="CenterAndExpand"
-            Text="{Binding Dimension}"
-            VerticalOptions="CenterAndExpand" />
-        <Label
-            HorizontalOptions="CenterAndExpand"
-            Text="{Binding Camera}"
-            VerticalOptions="CenterAndExpand" />
-        <Label
-            HorizontalOptions="CenterAndExpand"
-            Text="{Binding Date}"
-            VerticalOptions="CenterAndExpand" />
+        <Label Text="{Binding Name}"
+               TextColor="Red"
+               FontSize="45"
+               VerticalOptions="Center"/>
     </StackLayout>
 </ContentPage>

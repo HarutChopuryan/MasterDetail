@@ -51,9 +51,11 @@ namespace MasterDetail.Forms.Pages
 
         private async void OnItemTapped(object sender, ItemTappedEventArgs e)
         {
-            await _viewModel.ImgDetailsCommand.ExecuteAsync(sender);
+            var userImagesViewModel = e.Item as UserImagesViewModel;
             var selectedItemDetailPage = ServiceLocator.Instance.Locate<SelectedItemDetailsPage>();
             selectedItemDetailPage.ViewModel = _viewModel.ImgDetails;
+            if (userImagesViewModel != null)
+                selectedItemDetailPage.ViewModel.Name = userImagesViewModel.ImageName;
             await Navigation.PushAsync(selectedItemDetailPage);
         }
     }

@@ -14,7 +14,6 @@ namespace MasterDetail.UI.Main.Implementation
     {
         public UserViewModel()
         {
-            ImgDetailsCommand = new ImgDetailsCommand(this);
             ImgItems = new ObservableCollection<UserImagesViewModel>();
             ImgDetails = new SelectedItemDetailsViewModel();
             TakeCommand = new TakeCommand(this);
@@ -59,8 +58,6 @@ namespace MasterDetail.UI.Main.Implementation
         public IAsyncCommand AddCommand { get; set; }
 
         public ISelectedItemDetailsViewModel ImgDetails { get; set; }
-
-        public IAsyncCommand ImgDetailsCommand { get; set; }
 
         public IViewModelValidator Validator { get; }
     }
