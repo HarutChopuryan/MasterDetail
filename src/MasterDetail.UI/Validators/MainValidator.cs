@@ -9,9 +9,11 @@ namespace MasterDetail.UI.Validators
         public MainValidator(UserViewModel mainViewModel) : base(mainViewModel)
         {
             RuleFor(viewModel => viewModel.Name).Cascade(CascadeMode.StopOnFirstFailure).NotEmpty()
-                .WithMessage("Required").Matches(@"^[a-zA-Z]+$").WithMessage("Only Letters");
+                .WithMessage("Required").Matches(@"^[a-zA-Z]+$")
+                .WithMessage("Only Letters");
             RuleFor(viewModel => viewModel.Surname).Cascade(CascadeMode.StopOnFirstFailure).NotEmpty()
-                .WithMessage("Required").Matches(@"^[a-zA-Z]+$").WithMessage("Only Letters");
+                .WithMessage("Required").Matches(@"^[a-zA-Z]+$")
+                .WithMessage("Only Letters");
             RuleFor(viewModel => viewModel.PassportN).Cascade(CascadeMode.StopOnFirstFailure).NotEmpty()
                 .WithMessage("Required").Matches(@"[A-Z]{2}\d{7}")
                 .WithMessage("First 2 uppercase letters then 7 numbers");

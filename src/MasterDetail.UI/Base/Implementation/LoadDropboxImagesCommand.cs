@@ -28,19 +28,20 @@ namespace MasterDetail.UI.Base.Implementation
                 {
                     var list = await client.Files.ListFolderAsync(string.Empty);
 
-                    foreach (var item in list.Entries)
+                    Parallel.ForEach(list.Entries, item =>
                     {
-                        if (!item.IsFile || !item.Name.EndsWith(".jpg") && !item.Name.EndsWith(".png")) continue;
+                        if (!item.IsFile || !item.Name.EndsWith(".jpg") && !item.Name.EndsWith(".png"))
+                            return;
 
-                        var result = await client.Files.GetTemporaryLinkAsync($"/{item.Name}");
-                        var url = result.Link;
+                        var result = client.Files.GetTemporaryLinkAsync($"/{item.Name}");
+                        var url = result.GetAwaiter().GetResult().Link;
 
                         _viewModel.ImgItems.Add(new UserImagesViewModel
                         {
                             ImageSource = ImageSource.FromUri(new Uri(url)),
                             ImageName = item.Name
                         });
-                    }
+                    });
                 }
             }
 

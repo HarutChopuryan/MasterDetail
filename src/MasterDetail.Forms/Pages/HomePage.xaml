@@ -23,19 +23,19 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <entryViews:EntryView
-                Title="First Name"
+                Title="Name"
                 Grid.Row="0"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Text="{Binding FirstName, Mode=TwoWay}"
-                ValidationId="FirstName" />
+                Text="{Binding Name, Mode=TwoWay}"
+                ValidationId="Name" />
             <entryViews:EntryView
-                Title="Last Name"
+                Title="Surname"
                 Grid.Row="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Text="{Binding LastName, Mode=TwoWay}"
-                ValidationId="LastName" />
+                Text="{Binding Surname, Mode=TwoWay}"
+                ValidationId="Surname" />
             <entryViews:DatePickerView
                 Title="Birth Date"
                 Grid.Row="2"
