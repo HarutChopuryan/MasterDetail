@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Dropbox.Api;
@@ -17,8 +18,7 @@ namespace MasterDetail.UI.Base.Implementation
             _viewModel = viewModel;
         }
 
-        protected override async Task<bool> ExecuteCoreAsync(object parameter = null,
-            CancellationToken token = default(CancellationToken))
+        protected override async Task<bool> ExecuteCoreAsync(object parameter = null, CancellationToken token = default(CancellationToken))
         {
             if (_viewModel.ImgItems != null && _viewModel.ImgItems.Count == 0)
             {
@@ -35,10 +35,14 @@ namespace MasterDetail.UI.Base.Implementation
 
                         var result = client.Files.GetTemporaryLinkAsync($"/{item.Name}");
                         var url = result.GetAwaiter().GetResult().Link;
+                        var imgSourceUri = new UriImageSource
+                        {
+                            Uri = new Uri(url)
+                        };
 
                         _viewModel.ImgItems.Add(new UserImagesViewModel
                         {
-                            ImageSource = ImageSource.FromUri(new Uri(url)),
+                            ImageSource = imgSourceUri,
                             ImageName = item.Name
                         });
                     });

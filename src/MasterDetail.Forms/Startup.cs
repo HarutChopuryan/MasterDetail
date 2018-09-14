@@ -9,6 +9,7 @@ namespace MasterDetail.Forms
         public static DependencyInjectionContainer RegisterFormsDependencies(
             this DependencyInjectionContainer container)
         {
+            container.Add(block => block.Export<DropBoxFilesPage>().UsingLifestyle(new SingletonLifestyle()));
             container.Add(block => block.Export<SelectedItemDetailsPage>().UsingLifestyle(new SingletonLifestyle()));
             container.Add(block => block.Export<MapPage>().UsingLifestyle(new SingletonLifestyle()));
             return container;

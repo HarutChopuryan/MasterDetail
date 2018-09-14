@@ -4,9 +4,24 @@
     x:Class="MasterDetail.Forms.Pages.DropBoxFilesPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:MasterDetail.Forms.Converters"
+    xmlns:entryViews="clr-namespace:MasterDetail.Forms.Controls.EntryViews;assembly=MasterDetail.Forms"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     Title="Detail Page">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:VisibilityConverter x:Key="visibilityConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <AbsoluteLayout>
+        <ActivityIndicator
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            HorizontalOptions="Center"
+            IsRunning="{Binding LoadDropboxImagesCommand.IsBusy}"
+            IsVisible="{Binding LoadDropboxImagesCommand.IsBusy}"
+            VerticalOptions="Center"
+            Color="DarkGray" />
         <ListView
             x:Name="ListView"
             AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -18,24 +33,41 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout
-                            Margin="10,2,10,2"
-                            Orientation="Horizontal"
-                            Spacing="10">
+                        <Grid Margin="10,2,10,2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
                             <ffimageloading:CachedImage
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                CacheDuration="30"
                                 HeightRequest="60"
                                 Source="{Binding ImageSource}"
                                 WidthRequest="60" />
                             <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
                                 FontSize="15"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding ImageName}"
                                 VerticalTextAlignment="Center" />
-                        </StackLayout>
+                        </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <entryViews:FailureView
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            HorizontalOptions="Center"
+            IsVisible="{Binding Path=LoadDropboxImagesCommand.FailureMessage, Converter={StaticResource visibilityConverter}}"
+            Message="{Binding LoadDropboxImagesCommand.FailureMessage}"
+            TryAgainCommand="{Binding LoadDropboxImagesCommand}"
+            VerticalOptions="Center" />
         <Button
             AbsoluteLayout.LayoutBounds="0.95,0.95,70,70"
             AbsoluteLayout.LayoutFlags="PositionProportional"
