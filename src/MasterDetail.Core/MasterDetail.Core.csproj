@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="Grace" Version="6.4.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.3" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.3.840" />
