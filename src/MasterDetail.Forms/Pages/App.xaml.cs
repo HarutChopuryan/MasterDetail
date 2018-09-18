@@ -12,6 +12,8 @@ namespace MasterDetail.Forms.Pages
     {
         private readonly DependencyInjectionContainer _container;
 
+        public const string DBNAME = "userdropbox.db";
+
         public App(DependencyInjectionContainer container)
         {
             _container = container;

@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterDetail.Droid", "src\MasterDetail.Droid\MasterDetail.Droid.csproj", "{6C7B35D0-6903-46BA-8A3D-0136C829EDE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterDetail.Forms", "src\MasterDetail.Forms\MasterDetail.Forms.csproj", "{80A3BF6E-B4F0-44D7-A4F6-AD8406228772}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterDetail.Forms", "src\MasterDetail.Forms\MasterDetail.Forms.csproj", "{80A3BF6E-B4F0-44D7-A4F6-AD8406228772}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterDetail.Core", "src\MasterDetail.Core\MasterDetail.Core.csproj", "{A66304D5-F146-497F-8689-710805442550}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterDetail.Core", "src\MasterDetail.Core\MasterDetail.Core.csproj", "{A66304D5-F146-497F-8689-710805442550}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterDetail.UI", "src\MasterDetail.UI\MasterDetail.UI.csproj", "{B883934A-F135-45E7-BE09-94F17846D808}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterDetail.UI", "src\MasterDetail.UI\MasterDetail.UI.csproj", "{B883934A-F135-45E7-BE09-94F17846D808}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

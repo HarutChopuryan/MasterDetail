@@ -32,6 +32,8 @@ namespace MasterDetail.UI.Main.Implementation
 
         public string Email { get; set; }
 
+        public string DbName { get; set; }
+
         public IEnumerable<string> Gender { get; set; } = new List<string> { "Male", "Female" };
 
         public string PassportN { get; set; }

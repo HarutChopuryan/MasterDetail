@@ -16,6 +16,8 @@ namespace MasterDetail.UI.Main
 
         string Email { get; set; }
 
+        string DbName { get; set; }
+
         IEnumerable<string> Gender { get; set; }
 
         string PassportN { get; set; }

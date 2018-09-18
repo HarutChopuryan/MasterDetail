@@ -3,9 +3,11 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Dropbox.Api;
+using MasterDetail.Core.EFCore;
 using MasterDetail.UI.Main;
 using MasterDetail.UI.Main.Implementation;
 using Xamarin.Forms;
+using Image = MasterDetail.Core.EFCore.Models.Image;
 
 namespace MasterDetail.UI.Base.Implementation
 {
@@ -18,7 +20,8 @@ namespace MasterDetail.UI.Base.Implementation
             _viewModel = viewModel;
         }
 
-        protected override async Task<bool> ExecuteCoreAsync(object parameter = null, CancellationToken token = default(CancellationToken))
+        protected override async Task<bool> ExecuteCoreAsync(object parameter = null,
+            CancellationToken token = default(CancellationToken))
         {
             if (_viewModel.ImgItems != null && _viewModel.ImgItems.Count == 0)
             {
@@ -26,30 +29,54 @@ namespace MasterDetail.UI.Base.Implementation
 
                 using (var client = new DropboxClient(_accessKey))
                 {
-                    var list = await client.Files.ListFolderAsync(string.Empty);
-
-                    Parallel.ForEach(list.Entries, item =>
+                    using (ApplicationContext db=new ApplicationContext(_viewModel.DbName))
                     {
-                        if (!item.IsFile || !item.Name.EndsWith(".jpg") && !item.Name.EndsWith(".png"))
-                            return;
+                        var list = await client.Files.ListFolderAsync(string.Empty);
 
-                        var result = client.Files.GetTemporaryLinkAsync($"/{item.Name}");
-                        var url = result.GetAwaiter().GetResult().Link;
-                        var imgSourceUri = new UriImageSource
+                        foreach(var item in list.Entries)
                         {
-                            Uri = new Uri(url)
-                        };
+                            if (!item.IsFile || !item.Name.EndsWith(".jpg") && !item.Name.EndsWith(".png"))
+                                continue;
 
-                        _viewModel.ImgItems.Add(new UserImagesViewModel
-                        {
-                            ImageSource = imgSourceUri,
-                            ImageName = item.Name
-                        });
-                    });
+                            var result = client.Files.GetTemporaryLinkAsync($"/{item.Name}");
+                            var url = result.GetAwaiter().GetResult().Link;
+                            var imgSourceUri = new UriImageSource
+                            {
+                                Uri = new Uri(url)
+                            };
+
+                            db.UserDropbox.Add(new Image
+                            {
+                                ImageSource = ReadFully(await imgSourceUri.GetStreamAsync()),
+                                ImageName = item.Name
+                            });
+
+                            db.SaveChanges();
+
+                            _viewModel.ImgItems.Add(new UserImagesViewModel
+                            {
+                                ImageSource = imgSourceUri,
+                                ImageName = item.Name
+                            });
+                        }
+                    }
                 }
             }
 
             return true;
+        }
+        public static byte[] ReadFully(Stream input)
+        {
+            byte[] buffer = new byte[16 * 1024];
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
+            }
         }
     }
 }

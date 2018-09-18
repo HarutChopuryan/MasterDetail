@@ -1,6 +1,9 @@
-﻿using System;
-using Dropbox.Api;
+﻿using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using MasterDetail.Core.DI;
+using MasterDetail.Core.EFCore;
+using MasterDetail.Core.Services;
 using MasterDetail.UI.Main;
 using MasterDetail.UI.Main.Implementation;
 using Xamarin.Forms;
@@ -16,6 +19,7 @@ namespace MasterDetail.Forms.Pages
         public DropBoxFilesPage(IUserViewModel viewModel)
         {
             _viewModel = viewModel;
+            _viewModel.DbName = DependencyService.Get<IPath>().GetDatabasePath(App.DBNAME);
             InitializeComponent();
             BindingContext = _viewModel;
         }
@@ -23,6 +27,19 @@ namespace MasterDetail.Forms.Pages
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            using (var db = new ApplicationContext(_viewModel.DbName))
+            {
+                db.Database.EnsureCreated();
+                if (!db.UserDropbox.Any())
+                    await _viewModel.LoadDropboxImagesCommand.ExecuteAsync(_viewModel);
+                else
+                    _viewModel.ImgItems = (from user in db.UserDropbox
+                        select new UserImagesViewModel
+                        {
+                            ImageSource = ImageSource.FromStream(()=>new MemoryStream(user.ImageSource)),
+                            ImageName = user.ImageName
+                        }).ToList();
+            }
             await _viewModel.LoadDropboxImagesCommand.ExecuteAsync(_viewModel);
         }
 
@@ -36,6 +53,7 @@ namespace MasterDetail.Forms.Pages
                 selectedItemDetailPage.ViewModel.Name = userImagesViewModel.ImageName;
                 selectedItemDetailPage.ViewModel.ImageSource = userImagesViewModel.ImageSource;
             }
+
             await Navigation.PushAsync(selectedItemDetailPage);
         }
     }
