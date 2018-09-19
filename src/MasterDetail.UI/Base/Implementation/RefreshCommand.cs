@@ -23,6 +23,7 @@ namespace MasterDetail.UI.Base.Implementation
         {
             using (var db = new ApplicationContext(_viewModel.DbName))
             {
+                _viewModel.ImgItems.Clear();
                 _viewModel.ImgItems = (from user in db.UserDropbox
                     select new UserImagesViewModel
                     {
