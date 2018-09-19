@@ -23,6 +23,7 @@ namespace MasterDetail.UI.Main.Implementation
             RefreshCommand = new RefreshCommand(this);
             Validator = new MainValidator(this);
             LocateCommand = new LocateCommand(this);
+            SyncCommand = new SyncCommand(this);
         }
 
 
@@ -57,6 +58,8 @@ namespace MasterDetail.UI.Main.Implementation
         public IAsyncCommand PickCommand { get; set; }
 
         public IAsyncCommand AddCommand { get; set; }
+
+        public IAsyncCommand SyncCommand { get; set; }
 
         public IAsyncCommand RefreshCommand { get; set; }
 

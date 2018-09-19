@@ -40,6 +40,8 @@ namespace MasterDetail.UI.Main
 
         IAsyncCommand AddCommand { get; set; }
 
+        IAsyncCommand SyncCommand { get; set; }
+
         IAsyncCommand RefreshCommand { get; set; }
 
         IAsyncCommand LoadDropboxImagesCommand { get; set; }

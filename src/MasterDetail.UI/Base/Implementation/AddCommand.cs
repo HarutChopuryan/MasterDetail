@@ -38,24 +38,24 @@ namespace MasterDetail.UI.Base.Implementation
 
             string imageName = file.Path.Substring(file.Path.LastIndexOf('/') + 1);
 
-            ImageSource source = ImageSource.FromStream(() => file.GetStream());
+            //ImageSource source = ImageSource.FromStream(() => file.GetStream());
 
-            using (var db = new ApplicationContext(_viewModel.DbName))
-            {
-                db.UserDropbox.Add(new Image
-                {
-                    ImageSource = StreamToByte(file.GetStream()),
-                    ImageName = imageName
-                });
-                file.Dispose();
-                db.SaveChanges();
-            }
+            //using (var db = new ApplicationContext(_viewModel.DbName))
+            //{
+            //    db.UserDropbox.Add(new Image
+            //    {
+            //        ImageSource = StreamToByte(file.GetStream()),
+            //        ImageName = imageName
+            //    });
+            //    file.Dispose();
+            //    db.SaveChanges();
+            //}
 
-            _viewModel.ImgItems.Add(new UserImagesViewModel()
-            {
-                ImageSource = source,
-                ImageName = imageName
-            });
+            //_viewModel.ImgItems.Add(new UserImagesViewModel()
+            //{
+            //    ImageSource = source,
+            //    ImageName = imageName
+            //});
 
             var _accessKey = "Qg1P2iJ2DrAAAAAAAAAADLjGU5TlXqZgqTbejadackNzMBEkVrWO86BPK5qLNrX9";
 
@@ -64,7 +64,6 @@ namespace MasterDetail.UI.Base.Implementation
                 var ci = new CommitInfo($"/{imageName}");
                 var resp = await client.Files.UploadAsync(ci, file.GetStream());
             }
-
             return true;
         }
         public static byte[] StreamToByte(Stream input)

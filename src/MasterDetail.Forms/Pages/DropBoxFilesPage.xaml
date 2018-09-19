@@ -22,6 +22,22 @@
             IsVisible="{Binding LoadDropboxImagesCommand.IsBusy}"
             VerticalOptions="Center"
             Color="DarkGray" />
+        <ActivityIndicator
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            HorizontalOptions="Center"
+            IsRunning="{Binding SyncCommand.IsBusy}"
+            IsVisible="{Binding SyncCommand.IsBusy}"
+            VerticalOptions="Center"
+            Color="DarkGray" />
+        <ActivityIndicator
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            HorizontalOptions="Center"
+            IsRunning="{Binding AddCommand.IsBusy}"
+            IsVisible="{Binding AddCommand.IsBusy}"
+            VerticalOptions="Center"
+            Color="DarkGray" />
         <ListView
             x:Name="ListView"
             AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -71,6 +87,12 @@
             Message="{Binding LoadDropboxImagesCommand.FailureMessage}"
             TryAgainCommand="{Binding LoadDropboxImagesCommand}"
             VerticalOptions="Center" />
+        <Button
+            AbsoluteLayout.LayoutBounds="0.95,0.80,70,70"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            BackgroundColor="Transparent"
+            Command="{Binding SyncCommand}"
+            Image="sync.png" />
         <Button
             AbsoluteLayout.LayoutBounds="0.95,0.95,70,70"
             AbsoluteLayout.LayoutFlags="PositionProportional"
