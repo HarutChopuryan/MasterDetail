@@ -26,8 +26,11 @@
             x:Name="ListView"
             AbsoluteLayout.LayoutBounds="0,0,1,1"
             AbsoluteLayout.LayoutFlags="All"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding RefreshCommand.IsBusy}"
             ItemTapped="OnItemTapped"
-            ItemsSource="{Binding ImgItems}"
+            ItemsSource="{Binding ImgItems, Mode=TwoWay}"
+            RefreshCommand="{Binding RefreshCommand}"
             RowHeight="70"
             SeparatorVisibility="None">
             <ListView.ItemTemplate>

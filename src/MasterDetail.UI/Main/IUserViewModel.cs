@@ -8,8 +8,6 @@ namespace MasterDetail.UI.Main
 {
     public interface IUserViewModel : IValidateableViewModel
     {
-        IAsyncCommand LocateCommand { get; set; }
-
         string Name { get; set; }
 
         string Surname { get; set; }
@@ -18,11 +16,7 @@ namespace MasterDetail.UI.Main
 
         string DbName { get; set; }
 
-        IEnumerable<string> Gender { get; set; }
-
         string PassportN { get; set; }
-
-        Map Map { get; set; }
 
         string Address { get; set; }
 
@@ -34,17 +28,25 @@ namespace MasterDetail.UI.Main
 
         Position Coordinates { get; set; }
 
+        Map Map { get; set; }
+
         ImageSource AccountImageSource { get; set; }
 
         IAsyncCommand TakeCommand { get; set; }
 
         IAsyncCommand PickCommand { get; set; }
 
-        IList<UserImagesViewModel> ImgItems { get; set; }
+        IAsyncCommand LocateCommand { get; set; }
 
         IAsyncCommand AddCommand { get; set; }
 
+        IAsyncCommand RefreshCommand { get; set; }
+
         IAsyncCommand LoadDropboxImagesCommand { get; set; }
+
+        IEnumerable<string> Gender { get; set; }
+
+        IList<UserImagesViewModel> ImgItems { get; set; }
 
         ISelectedItemDetailsViewModel ImgDetails { get; set; }
     }

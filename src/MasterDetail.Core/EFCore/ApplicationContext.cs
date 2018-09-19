@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using Image = MasterDetail.Core.EFCore.Models.Image;
+﻿using MasterDetail.Core.EFCore.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace MasterDetail.Core.EFCore
 {

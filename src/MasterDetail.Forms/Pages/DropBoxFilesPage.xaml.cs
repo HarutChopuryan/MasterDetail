@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using MasterDetail.Core.DI;
 using MasterDetail.Core.EFCore;
 using MasterDetail.Core.Services;
@@ -33,14 +32,16 @@ namespace MasterDetail.Forms.Pages
                 if (!db.UserDropbox.Any())
                     await _viewModel.LoadDropboxImagesCommand.ExecuteAsync(_viewModel);
                 else
+                {
+                    _viewModel.ImgItems.Clear();
                     _viewModel.ImgItems = (from user in db.UserDropbox
-                        select new UserImagesViewModel
-                        {
-                            ImageSource = ImageSource.FromStream(()=>new MemoryStream(user.ImageSource)),
-                            ImageName = user.ImageName
-                        }).ToList();
+                                           select new UserImagesViewModel
+                                           {
+                                               ImageSource = ImageSource.FromStream(() => new MemoryStream(user.ImageSource)),
+                                               ImageName = user.ImageName
+                                           }).ToList();
+                }
             }
-            await _viewModel.LoadDropboxImagesCommand.ExecuteAsync(_viewModel);
         }
 
         private async void OnItemTapped(object sender, ItemTappedEventArgs e)
@@ -53,7 +54,6 @@ namespace MasterDetail.Forms.Pages
                 selectedItemDetailPage.ViewModel.Name = userImagesViewModel.ImageName;
                 selectedItemDetailPage.ViewModel.ImageSource = userImagesViewModel.ImageSource;
             }
-
             await Navigation.PushAsync(selectedItemDetailPage);
         }
     }

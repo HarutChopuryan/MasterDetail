@@ -20,11 +20,11 @@ namespace MasterDetail.UI.Main.Implementation
             TakeCommand = new TakeCommand(this);
             PickCommand = new PickCommand(this);
             AddCommand = new AddCommand(this);
+            RefreshCommand = new RefreshCommand(this);
             Validator = new MainValidator(this);
             LocateCommand = new LocateCommand(this);
         }
 
-        public IAsyncCommand LocateCommand { get; set; }
 
         public string Name { get; set; }
 
@@ -34,11 +34,7 @@ namespace MasterDetail.UI.Main.Implementation
 
         public string DbName { get; set; }
 
-        public IEnumerable<string> Gender { get; set; } = new List<string> { "Male", "Female" };
-
         public string PassportN { get; set; }
-
-        public Map Map { get; set; }
 
         public string Address { get; set; }
 
@@ -52,15 +48,23 @@ namespace MasterDetail.UI.Main.Implementation
 
         public ImageSource AccountImageSource { get; set; } = "avatar.jpg";
 
+        public Map Map { get; set; }
+
         public IAsyncCommand TakeCommand { get; set; }
+
+        public IAsyncCommand LocateCommand { get; set; }
 
         public IAsyncCommand PickCommand { get; set; }
 
-        public IList<UserImagesViewModel> ImgItems { get; set; }
-
         public IAsyncCommand AddCommand { get; set; }
 
+        public IAsyncCommand RefreshCommand { get; set; }
+
         public IAsyncCommand LoadDropboxImagesCommand { get; set; }
+
+        public IList<UserImagesViewModel> ImgItems { get; set; }
+
+        public IEnumerable<string> Gender { get; set; } = new List<string> { "Male", "Female" };
 
         public ISelectedItemDetailsViewModel ImgDetails { get; set; }
 

@@ -1,12 +1,15 @@
-﻿using System.Threading;
+﻿using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using Dropbox.Api;
 using Dropbox.Api.Files;
+using MasterDetail.Core.EFCore;
 using MasterDetail.UI.Main;
 using MasterDetail.UI.Main.Implementation;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Xamarin.Forms;
+using Image = MasterDetail.Core.EFCore.Models.Image;
 
 namespace MasterDetail.UI.Base.Implementation
 {
@@ -33,14 +36,20 @@ namespace MasterDetail.UI.Base.Implementation
             if (file == null)
                 return false;
 
-            ImageSource source = ImageSource.FromStream(() =>
-            {
-                var stream = file.GetStream();
-                file.Dispose();
-                return stream;
-            });
-
             string imageName = file.Path.Substring(file.Path.LastIndexOf('/') + 1);
+
+            ImageSource source = ImageSource.FromStream(() => file.GetStream());
+
+            using (var db = new ApplicationContext(_viewModel.DbName))
+            {
+                db.UserDropbox.Add(new Image
+                {
+                    ImageSource = StreamToByte(file.GetStream()),
+                    ImageName = imageName
+                });
+                file.Dispose();
+                db.SaveChanges();
+            }
 
             _viewModel.ImgItems.Add(new UserImagesViewModel()
             {
@@ -57,6 +66,16 @@ namespace MasterDetail.UI.Base.Implementation
             }
 
             return true;
+        }
+        public static byte[] StreamToByte(Stream input)
+        {
+            var buffer = new byte[16 * 1024];
+            using (var ms = new MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0) ms.Write(buffer, 0, read);
+                return ms.ToArray();
+            }
         }
     }
 }

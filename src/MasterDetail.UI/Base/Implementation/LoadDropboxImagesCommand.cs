@@ -29,52 +29,46 @@ namespace MasterDetail.UI.Base.Implementation
 
                 using (var client = new DropboxClient(_accessKey))
                 {
-                    using (ApplicationContext db=new ApplicationContext(_viewModel.DbName))
+                    var list = await client.Files.ListFolderAsync(string.Empty);
+                    foreach (var item in list.Entries)
                     {
-                        var list = await client.Files.ListFolderAsync(string.Empty);
-
-                        foreach(var item in list.Entries)
+                        if (!item.IsFile || !item.Name.EndsWith(".jpg") && !item.Name.EndsWith(".png"))
+                            continue;
+                        var result = client.Files.GetTemporaryLinkAsync($"/{item.Name}");
+                        var url = result.GetAwaiter().GetResult().Link;
+                        var imgSourceUri = new UriImageSource
                         {
-                            if (!item.IsFile || !item.Name.EndsWith(".jpg") && !item.Name.EndsWith(".png"))
-                                continue;
-
-                            var result = client.Files.GetTemporaryLinkAsync($"/{item.Name}");
-                            var url = result.GetAwaiter().GetResult().Link;
-                            var imgSourceUri = new UriImageSource
-                            {
-                                Uri = new Uri(url)
-                            };
-
+                            Uri = new Uri(url)
+                        };
+                        using (var db = new ApplicationContext(_viewModel.DbName))
+                        {
                             db.UserDropbox.Add(new Image
                             {
-                                ImageSource = ReadFully(await imgSourceUri.GetStreamAsync()),
+                                ImageSource = StreamToByte(await imgSourceUri.GetStreamAsync(token)),
                                 ImageName = item.Name
                             });
-
                             db.SaveChanges();
-
-                            _viewModel.ImgItems.Add(new UserImagesViewModel
-                            {
-                                ImageSource = imgSourceUri,
-                                ImageName = item.Name
-                            });
                         }
+
+                        _viewModel.ImgItems.Add(new UserImagesViewModel
+                        {
+                            ImageSource = imgSourceUri,
+                            ImageName = item.Name
+                        });
                     }
                 }
             }
 
             return true;
         }
-        public static byte[] ReadFully(Stream input)
+
+        public static byte[] StreamToByte(Stream input)
         {
-            byte[] buffer = new byte[16 * 1024];
-            using (MemoryStream ms = new MemoryStream())
+            var buffer = new byte[16 * 1024];
+            using (var ms = new MemoryStream())
             {
                 int read;
-                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
-                {
-                    ms.Write(buffer, 0, read);
-                }
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0) ms.Write(buffer, 0, read);
                 return ms.ToArray();
             }
         }
