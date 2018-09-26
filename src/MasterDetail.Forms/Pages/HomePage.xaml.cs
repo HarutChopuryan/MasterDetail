@@ -12,9 +12,9 @@ namespace MasterDetail.Forms.Pages
     {
         private readonly IUserViewModel _viewModel;
 
-        public HomePage(IUserViewModel viewModel)
+        public HomePage()
         {
-            _viewModel = viewModel;
+            _viewModel = ServiceLocator.Instance.Locate<IUserViewModel>();
             InitializeComponent();
             BindingContext = _viewModel;
         }

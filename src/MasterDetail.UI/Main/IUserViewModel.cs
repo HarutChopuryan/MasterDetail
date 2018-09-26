@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MasterDetail.Core.Services;
 using MasterDetail.UI.Base;
 using MasterDetail.UI.Main.Implementation;
 using Xamarin.Forms;
@@ -45,6 +46,8 @@ namespace MasterDetail.UI.Main
         IAsyncCommand RefreshCommand { get; set; }
 
         IAsyncCommand LoadDropboxImagesCommand { get; set; }
+
+        IAsyncCommand LoadImagesFromCacheCommand { get; set; }
 
         IEnumerable<string> Gender { get; set; }
 

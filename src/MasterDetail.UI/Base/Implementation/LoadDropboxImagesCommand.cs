@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Dropbox.Api;
 using MasterDetail.Core.EFCore;
+using MasterDetail.Core.Services.Implementation;
 using MasterDetail.UI.Main;
 using MasterDetail.UI.Main.Implementation;
 using Xamarin.Forms;
@@ -40,14 +42,22 @@ namespace MasterDetail.UI.Base.Implementation
                         {
                             Uri = new Uri(url)
                         };
-                        using (var db = new ApplicationContext(_viewModel.DbName))
+
+                        try
                         {
-                            db.UserDropbox.Add(new Image
+                            using (var work = new DbWork(new ImageContext(_viewModel.DbName)))
                             {
-                                ImageSource = StreamToByte(await imgSourceUri.GetStreamAsync(token)),
-                                ImageName = item.Name
-                            });
-                            db.SaveChanges();
+                                work.Images.Add(new Image
+                                {
+                                    ImageSource = StreamToByte(await imgSourceUri.GetStreamAsync(token)),
+                                    ImageName = item.Name
+                                });
+                                work.Complete();
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine(e.Message);
                         }
 
                         _viewModel.ImgItems.Add(new UserImagesViewModel

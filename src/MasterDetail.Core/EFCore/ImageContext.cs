@@ -3,13 +3,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasterDetail.Core.EFCore
 {
-    public class ApplicationContext : DbContext
+    public sealed class ImageContext : DbContext
     {
         private readonly string _databasePath;
 
-        public ApplicationContext(string databasePath)
+        public ImageContext(string databasePath)
         {
             _databasePath = databasePath;
+            Database.EnsureCreated();
         }
 
         public DbSet<Image> UserDropbox { get; set; }

@@ -40,7 +40,7 @@ namespace MasterDetail.UI.Base.Implementation
 
             //ImageSource source = ImageSource.FromStream(() => file.GetStream());
 
-            //using (var db = new ApplicationContext(_viewModel.DbName))
+            //using (var db = new ImageContext(_viewModel.DbName))
             //{
             //    db.UserDropbox.Add(new Image
             //    {

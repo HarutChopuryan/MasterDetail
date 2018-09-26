@@ -21,16 +21,16 @@ namespace MasterDetail.UI.Base.Implementation
         protected override Task<bool> ExecuteCoreAsync(object parameter = null,
             CancellationToken token = default(CancellationToken))
         {
-            using (var db = new ApplicationContext(_viewModel.DbName))
-            {
-                _viewModel.ImgItems.Clear();
-                _viewModel.ImgItems = (from user in db.UserDropbox
-                    select new UserImagesViewModel
-                    {
-                        ImageSource = ImageSource.FromStream(() => new MemoryStream(user.ImageSource)),
-                        ImageName = user.ImageName
-                    }).ToList();
-            }
+            //using (var db = new ImageContext(_viewModel.DbName))
+            //{
+            //    _viewModel.ImgItems.Clear();
+            //    _viewModel.ImgItems = (from user in db.UserDropbox
+            //        select new UserImagesViewModel
+            //        {
+            //            ImageSource = ImageSource.FromStream(() => new MemoryStream(user.ImageSource)),
+            //            ImageName = user.ImageName
+            //        }).ToList();
+            //}
             return Task.FromResult(true);
         }
     }

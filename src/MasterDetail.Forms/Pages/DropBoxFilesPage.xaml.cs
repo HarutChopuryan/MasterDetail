@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Linq;
-using MasterDetail.Core.DI;
-using MasterDetail.Core.EFCore;
+﻿using MasterDetail.Core.DI;
 using MasterDetail.Core.Services;
 using MasterDetail.UI.Main;
 using MasterDetail.UI.Main.Implementation;
@@ -26,22 +23,7 @@ namespace MasterDetail.Forms.Pages
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            using (var db = new ApplicationContext(_viewModel.DbName))
-            {
-                db.Database.EnsureCreated();
-                if (!db.UserDropbox.Any())
-                    await _viewModel.LoadDropboxImagesCommand.ExecuteAsync(_viewModel);
-                else
-                {
-                    _viewModel.ImgItems.Clear();
-                    _viewModel.ImgItems = (from user in db.UserDropbox
-                                           select new UserImagesViewModel
-                                           {
-                                               ImageSource = ImageSource.FromStream(() => new MemoryStream(user.ImageSource)),
-                                               ImageName = user.ImageName
-                                           }).ToList();
-                }
-            }
+            await _viewModel.LoadImagesFromCacheCommand.ExecuteAsync();
         }
 
         private async void OnItemTapped(object sender, ItemTappedEventArgs e)
@@ -54,6 +36,7 @@ namespace MasterDetail.Forms.Pages
                 selectedItemDetailPage.ViewModel.Name = userImagesViewModel.ImageName;
                 selectedItemDetailPage.ViewModel.ImageSource = userImagesViewModel.ImageSource;
             }
+
             await Navigation.PushAsync(selectedItemDetailPage);
         }
     }

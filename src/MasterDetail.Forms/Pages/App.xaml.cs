@@ -1,6 +1,7 @@
 ﻿using Grace.DependencyInjection;
 using Grace.DependencyInjection.Lifestyle;
 using MasterDetail.Core.DI;
+using MasterDetail.UI;
 using MasterDetail.UI.Main;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -18,7 +19,10 @@ namespace MasterDetail.Forms.Pages
         {
             _container = container;
             InitializeComponent();
-            MainPage = new MasterDetailMainPage();
+            MainPage = new MasterDetailMainPage()
+            {
+                BindingContext = ServiceLocator.Instance.Locate<IUserViewModel>()
+            };
         }
 
         protected override void OnStart()

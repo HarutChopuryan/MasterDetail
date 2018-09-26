@@ -40,6 +40,7 @@ namespace MasterDetail.UI.Base.Implementation
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(ex.Message);
                 HandleException(ex);
             }
             finally

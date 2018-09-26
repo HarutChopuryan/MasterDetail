@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Dropbox.Api;
 using Dropbox.Api.Files;
 using Dropbox.Api.Stone;
+using MasterDetail.Core.DI;
 using MasterDetail.UI.Main;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,9 +17,9 @@ namespace MasterDetail.Forms.Pages
     {
         private readonly IUserViewModel _viewModel;
 
-        public UserPage(IUserViewModel viewModel)
+        public UserPage()
         {
-            _viewModel = viewModel;
+            _viewModel = ServiceLocator.Instance.Locate<IUserViewModel>();
             InitializeComponent();
             BindingContext = _viewModel;
         }

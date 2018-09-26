@@ -1,5 +1,8 @@
 ﻿using Grace.DependencyInjection;
 using Grace.DependencyInjection.Lifestyle;
+using MasterDetail.Core.DI;
+using MasterDetail.Core.EFCore;
+using MasterDetail.Core.Services.Implementation;
 using MasterDetail.UI.Main;
 using MasterDetail.UI.Main.Implementation;
 

@@ -28,53 +28,53 @@ namespace MasterDetail.UI.Base.Implementation
 
             using (var client = new DropboxClient(_accessKey))
             {
-                using (var db = new ApplicationContext(_viewModel.DbName))
-                {
-                    var list = await client.Files.ListFolderAsync(string.Empty);
-                    if (list.Entries.Count > db.UserDropbox.ToList().Count)
-                    {
-                        for (var i = db.UserDropbox.ToList().Count; i < list.Entries.Count; i++)
-                        {
-                            var result = client.Files.GetTemporaryLinkAsync($"/{list.Entries[i].Name}");
-                            var url = result.GetAwaiter().GetResult().Link;
-                            var imgSourceUri = new UriImageSource
-                            {
-                                Uri = new Uri(url)
-                            };
-                            db.UserDropbox.Add(new Image
-                            {
-                                ImageSource = StreamToByte(await imgSourceUri.GetStreamAsync(token)),
-                                ImageName = list.Entries[i].Name
-                            });
-                            db.SaveChanges();
+                //using (var db = new ImageContext(_viewModel.DbName))
+                //{
+                //    var list = await client.Files.ListFolderAsync(string.Empty);
+                //    if (list.Entries.Count > db.UserDropbox.ToList().Count)
+                //    {
+                //        for (var i = db.UserDropbox.ToList().Count; i < list.Entries.Count; i++)
+                //        {
+                //            var result = client.Files.GetTemporaryLinkAsync($"/{list.Entries[i].Name}");
+                //            var url = result.GetAwaiter().GetResult().Link;
+                //            var imgSourceUri = new UriImageSource
+                //            {
+                //                Uri = new Uri(url)
+                //            };
+                //            db.UserDropbox.Add(new Image
+                //            {
+                //                ImageSource = StreamToByte(await imgSourceUri.GetStreamAsync(token)),
+                //                ImageName = list.Entries[i].Name
+                //            });
+                //            db.SaveChanges();
 
-                            _viewModel.ImgItems.Add(new UserImagesViewModel
-                            {
-                                ImageSource = imgSourceUri,
-                                ImageName = list.Entries[i].Name
-                            });
-                        }
-                    }
-                    else if (list.Entries.Count < db.UserDropbox.ToList().Count)
-                    {
-                        for (int i = 0; i < db.UserDropbox.ToList().Count; i++)
-                        {
-                            try
-                            {
-                                if(list.Entries.Count==0)
-                                    db.UserDropbox.Local.Clear();
-                                else if(list.Entries[i].Name != db.UserDropbox.ToList()[i].ImageName)
-                                    db.UserDropbox.Remove(db.UserDropbox.Local.ElementAt(i));
-                            }
-                            catch (Exception e)
-                            {
-                                await _viewModel.RefreshCommand.ExecuteAsync(token: token);
-                            }
-                        }
-                        db.SaveChanges();
-                        await _viewModel.RefreshCommand.ExecuteAsync(token: token);
-                    }
-                }
+                //            _viewModel.ImgItems.Add(new UserImagesViewModel
+                //            {
+                //                ImageSource = imgSourceUri,
+                //                ImageName = list.Entries[i].Name
+                //            });
+                //        }
+                //    }
+                //    else if (list.Entries.Count < db.UserDropbox.ToList().Count)
+                //    {
+                //        for (int i = 0; i < db.UserDropbox.ToList().Count; i++)
+                //        {
+                //            try
+                //            {
+                //                if(list.Entries.Count==0)
+                //                    db.UserDropbox.Local.Clear();
+                //                else if(list.Entries[i].Name != db.UserDropbox.ToList()[i].ImageName)
+                //                    db.UserDropbox.Remove(db.UserDropbox.Local.ElementAt(i));
+                //            }
+                //            catch (Exception e)
+                //            {
+                //                await _viewModel.RefreshCommand.ExecuteAsync(token: token);
+                //            }
+                //        }
+                //        db.SaveChanges();
+                //        await _viewModel.RefreshCommand.ExecuteAsync(token: token);
+                //    }
+                //}
             }
 
             await _viewModel.RefreshCommand.ExecuteAsync(token: token);

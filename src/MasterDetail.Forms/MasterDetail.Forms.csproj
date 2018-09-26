@@ -40,9 +40,6 @@
     <Compile Update="Pages\DropBoxFilesPage.xaml.cs">
       <DependentUpon>DropBoxFilesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\MasterDetailMainPage.xaml.cs">
-      <DependentUpon>MasterDetailMainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Pages\UserPage.xaml.cs">
       <DependentUpon>UserPage.xaml</DependentUpon>
     </Compile>
@@ -71,9 +68,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\MapPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Pages\MasterDetailMainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\SelectedItemDetailsPage.xaml">
