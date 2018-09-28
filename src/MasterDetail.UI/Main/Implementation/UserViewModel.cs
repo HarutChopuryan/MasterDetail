@@ -27,6 +27,7 @@ namespace MasterDetail.UI.Main.Implementation
             Validator = new MainValidator(this);
             LocateCommand = new LocateCommand(this);
             SyncCommand = new SyncCommand(this);
+            //DeletedImages = new List<string>();
         }
 
         public string Name { get; set; }

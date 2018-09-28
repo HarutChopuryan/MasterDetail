@@ -16,6 +16,12 @@ namespace MasterDetail.Core.Services.Implementation
         {
             var img = ImageContext.UserDropbox.Find(id);
             ImageContext.UserDropbox.Remove(img);
+            ImageContext.SaveChanges();
+        }
+
+        public void Clear()
+        {
+            ImageContext.UserDropbox.Local.Clear();
         }
 
         public bool HasItems()

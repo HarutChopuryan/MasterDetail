@@ -9,6 +9,8 @@ namespace MasterDetail.Core.Services
     {
         void DeleteById(int id);
 
+        void Clear();
+
         bool HasItems();
     }
 }

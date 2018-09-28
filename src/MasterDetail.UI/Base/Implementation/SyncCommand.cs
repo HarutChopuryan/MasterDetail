@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Dropbox.Api;
 using MasterDetail.Core.EFCore;
+using MasterDetail.Core.Services.Implementation;
 using MasterDetail.UI.Main;
 using MasterDetail.UI.Main.Implementation;
 using Xamarin.Forms;
@@ -28,56 +30,60 @@ namespace MasterDetail.UI.Base.Implementation
 
             using (var client = new DropboxClient(_accessKey))
             {
-                //using (var db = new ImageContext(_viewModel.DbName))
-                //{
-                //    var list = await client.Files.ListFolderAsync(string.Empty);
-                //    if (list.Entries.Count > db.UserDropbox.ToList().Count)
-                //    {
-                //        for (var i = db.UserDropbox.ToList().Count; i < list.Entries.Count; i++)
-                //        {
-                //            var result = client.Files.GetTemporaryLinkAsync($"/{list.Entries[i].Name}");
-                //            var url = result.GetAwaiter().GetResult().Link;
-                //            var imgSourceUri = new UriImageSource
-                //            {
-                //                Uri = new Uri(url)
-                //            };
-                //            db.UserDropbox.Add(new Image
-                //            {
-                //                ImageSource = StreamToByte(await imgSourceUri.GetStreamAsync(token)),
-                //                ImageName = list.Entries[i].Name
-                //            });
-                //            db.SaveChanges();
+                using (var work = new DbWork(new ImageContext(_viewModel.DbName)))
+                {
+                    var list = await client.Files.ListFolderAsync(string.Empty);
+                    if (list.Entries.Count > work.Images.GetAll().Count())
+                    {
+                        for (var i = work.Images.GetAll().Count(); i < list.Entries.Count; i++)
+                        {
+                            var result = client.Files.GetTemporaryLinkAsync($"/{list.Entries[i].Name}");
+                            var url = result.GetAwaiter().GetResult().Link;
+                            var imgSourceUri = new UriImageSource
+                            {
+                                Uri = new Uri(url)
+                            };
+                            work.Images.Add(new Image
+                            {
+                                ImageSource = StreamToByte(await imgSourceUri.GetStreamAsync(token)),
+                                ImageName = list.Entries[i].Name
+                            });
+                            work.Complete();
 
-                //            _viewModel.ImgItems.Add(new UserImagesViewModel
-                //            {
-                //                ImageSource = imgSourceUri,
-                //                ImageName = list.Entries[i].Name
-                //            });
-                //        }
-                //    }
-                //    else if (list.Entries.Count < db.UserDropbox.ToList().Count)
-                //    {
-                //        for (int i = 0; i < db.UserDropbox.ToList().Count; i++)
-                //        {
-                //            try
-                //            {
-                //                if(list.Entries.Count==0)
-                //                    db.UserDropbox.Local.Clear();
-                //                else if(list.Entries[i].Name != db.UserDropbox.ToList()[i].ImageName)
-                //                    db.UserDropbox.Remove(db.UserDropbox.Local.ElementAt(i));
-                //            }
-                //            catch (Exception e)
-                //            {
-                //                await _viewModel.RefreshCommand.ExecuteAsync(token: token);
-                //            }
-                //        }
-                //        db.SaveChanges();
-                //        await _viewModel.RefreshCommand.ExecuteAsync(token: token);
-                //    }
-                //}
+                            _viewModel.ImgItems.Add(new UserImagesViewModel
+                            {
+                                ImageSource = imgSourceUri,
+                                ImageName = list.Entries[i].Name
+                            });
+                        }
+                        await _viewModel.RefreshCommand.ExecuteAsync(token: token);
+                    }
+                    else if (list.Entries.Count < work.Images.GetAll().Count())
+                    {
+                        if (list.Entries.Count == 0)
+                        {
+                            work.Images.Clear();
+                        }
+                        else
+                        {
+                            var existingItems = new List<string>();
+                            foreach (var dropBoxImage in list.Entries)
+                                if (!dropBoxImage.IsDeleted)
+                                    existingItems.Add(dropBoxImage.Name);
+
+                            foreach (var dbImage in work.Images.GetAll())
+                                if (!existingItems.Contains(dbImage.ImageName))
+                                {
+                                    var img = work.Images.GetAll().First(item => item.ImageName == dbImage.ImageName);
+                                    work.Images.Remove(img);
+                                }
+                        }
+                        work.Complete();
+                        await _viewModel.RefreshCommand.ExecuteAsync(token: token);
+                    }
+                }
             }
 
-            await _viewModel.RefreshCommand.ExecuteAsync(token: token);
             return true;
         }
 

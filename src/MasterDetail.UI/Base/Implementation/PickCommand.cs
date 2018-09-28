@@ -36,7 +36,6 @@ namespace MasterDetail.UI.Base.Implementation
             _viewModel.AccountImageSource = ImageSource.FromStream(() =>
             {
                 var stream = file.GetStream();
-                file.Dispose();
                 return stream;
             });
 
@@ -55,6 +54,7 @@ namespace MasterDetail.UI.Base.Implementation
                 var ci = new CommitInfo($"/{imageName}");
                 var resp = await client.Files.UploadAsync(ci, file.GetStream());
             }
+            file.Dispose();
 
             return true;
         }

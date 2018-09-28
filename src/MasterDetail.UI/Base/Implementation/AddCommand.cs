@@ -3,13 +3,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Dropbox.Api;
 using Dropbox.Api.Files;
-using MasterDetail.Core.EFCore;
 using MasterDetail.UI.Main;
 using MasterDetail.UI.Main.Implementation;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Xamarin.Forms;
-using Image = MasterDetail.Core.EFCore.Models.Image;
 
 namespace MasterDetail.UI.Base.Implementation
 {
@@ -36,26 +34,9 @@ namespace MasterDetail.UI.Base.Implementation
             if (file == null)
                 return false;
 
-            string imageName = file.Path.Substring(file.Path.LastIndexOf('/') + 1);
+            var imageName = file.Path.Substring(file.Path.LastIndexOf('/') + 1);
 
-            //ImageSource source = ImageSource.FromStream(() => file.GetStream());
-
-            //using (var db = new ImageContext(_viewModel.DbName))
-            //{
-            //    db.UserDropbox.Add(new Image
-            //    {
-            //        ImageSource = StreamToByte(file.GetStream()),
-            //        ImageName = imageName
-            //    });
-            //    file.Dispose();
-            //    db.SaveChanges();
-            //}
-
-            //_viewModel.ImgItems.Add(new UserImagesViewModel()
-            //{
-            //    ImageSource = source,
-            //    ImageName = imageName
-            //});
+            var source = ImageSource.FromStream(() => file.GetStream());
 
             var _accessKey = "Qg1P2iJ2DrAAAAAAAAAADLjGU5TlXqZgqTbejadackNzMBEkVrWO86BPK5qLNrX9";
 
@@ -64,8 +45,18 @@ namespace MasterDetail.UI.Base.Implementation
                 var ci = new CommitInfo($"/{imageName}");
                 var resp = await client.Files.UploadAsync(ci, file.GetStream());
             }
+
+            _viewModel.ImgItems.Add(new UserImagesViewModel
+            {
+                ImageSource = source,
+                ImageName = imageName
+            });
+
+            file.Dispose();
+
             return true;
         }
+
         public static byte[] StreamToByte(Stream input)
         {
             var buffer = new byte[16 * 1024];
