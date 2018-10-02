@@ -1,4 +1,5 @@
-﻿using MasterDetail.UI.Main;
+﻿using MasterDetail.Core.DI;
+using MasterDetail.UI.Main;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,15 +8,13 @@ namespace MasterDetail.Forms.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SelectedItemDetailsPage : ContentPage
     {
-        public SelectedItemDetailsPage()
-        {
-            InitializeComponent();
-        }
+        private readonly IUserViewModel _viewModel;
 
-        public ISelectedItemDetailsViewModel ViewModel
+        public SelectedItemDetailsPage(IUserViewModel viewModel)
         {
-            get => (ISelectedItemDetailsViewModel) BindingContext;
-            set => BindingContext = value;
+            _viewModel = viewModel;
+            InitializeComponent();
+            BindingContext = _viewModel.ImgDetails;
         }
     }
 }

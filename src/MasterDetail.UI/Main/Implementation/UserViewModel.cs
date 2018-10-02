@@ -14,7 +14,7 @@ namespace MasterDetail.UI.Main.Implementation
     [AddINotifyPropertyChangedInterface]
     public class UserViewModel : BaseBindableObject, IUserViewModel
     {
-        public UserViewModel(/*IRepository<Image> repository*/)
+        public UserViewModel()
         {
             LoadImagesFromCacheCommand = new LoadImagesFromCacheCommand(this);
             LoadDropboxImagesCommand = new LoadDropboxImagesCommand(this);
@@ -27,7 +27,7 @@ namespace MasterDetail.UI.Main.Implementation
             Validator = new MainValidator(this);
             LocateCommand = new LocateCommand(this);
             SyncCommand = new SyncCommand(this);
-            //DeletedImages = new List<string>();
+            UserInfoInitCommand = new UserInfoInitCommand(this);
         }
 
         public string Name { get; set; }
@@ -69,6 +69,8 @@ namespace MasterDetail.UI.Main.Implementation
         public IAsyncCommand LoadDropboxImagesCommand { get; set; }
 
         public IAsyncCommand LoadImagesFromCacheCommand { get; set; }
+
+        public IAsyncCommand UserInfoInitCommand { get; set; }
 
         public IList<UserImagesViewModel> ImgItems { get; set; }
 

@@ -16,6 +16,7 @@ namespace MasterDetail.Forms.Pages
         {
             _viewModel = viewModel;
             _viewModel.DbName = DependencyService.Get<IPath>().GetDatabasePath(App.DBNAME);
+            _viewModel.ImgDetails.DbName = _viewModel.DbName;
             InitializeComponent();
             BindingContext = _viewModel;
         }
@@ -28,15 +29,8 @@ namespace MasterDetail.Forms.Pages
 
         private async void OnItemTapped(object sender, ItemTappedEventArgs e)
         {
-            var userImagesViewModel = e.Item as UserImagesViewModel;
             var selectedItemDetailPage = ServiceLocator.Instance.Locate<SelectedItemDetailsPage>();
-            selectedItemDetailPage.ViewModel = _viewModel.ImgDetails;
-            if (userImagesViewModel != null)
-            {
-                selectedItemDetailPage.ViewModel.Name = userImagesViewModel.ImageName;
-                selectedItemDetailPage.ViewModel.ImageSource = userImagesViewModel.ImageSource;
-            }
-
+            await _viewModel.ImgDetails.ShowTappedImgCommand.ExecuteAsync(e);
             await Navigation.PushAsync(selectedItemDetailPage);
         }
     }

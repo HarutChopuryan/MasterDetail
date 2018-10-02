@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
-using Dropbox.Api;
-using Dropbox.Api.Files;
-using Dropbox.Api.Stone;
 using MasterDetail.Core.DI;
 using MasterDetail.UI.Main;
 using Xamarin.Forms;
@@ -28,20 +22,7 @@ namespace MasterDetail.Forms.Pages
         {
             base.OnAppearing();
             PhotoButtonsStackLayout.IsVisible = false;
-            var _accessKey = "Qg1P2iJ2DrAAAAAAAAAADLjGU5TlXqZgqTbejadackNzMBEkVrWO86BPK5qLNrX9";
-            Task.Run(async () =>
-            {
-                using (var dbx = new DropboxClient(_accessKey))
-                {
-                    var full = await dbx.Users.GetCurrentAccountAsync();
-                    if (full != null)
-                    {
-                        _viewModel.Name = full.Name.DisplayName.Split(' ')[0];
-                        _viewModel.Surname = full.Name.DisplayName.Split(' ')[1];
-                        _viewModel.Email = full.Email;
-                    }
-                }
-            });
+            _viewModel.UserInfoInitCommand.ExecuteAsync();
         }
 
         private void OnMasterImgEditClicked(object sender, EventArgs e)

@@ -2,14 +2,19 @@
 <ContentPage
     x:Class="MasterDetail.Forms.Pages.SelectedItemDetailsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <StackLayout>
         <Label
             FontSize="20"
+            HorizontalOptions="CenterAndExpand"
             Text="{Binding Name}"
-            TextColor="Black"
-            VerticalOptions="Center" />
-        <ffimageloading:CachedImage Source="{Binding ImageSource}" />
+            TextColor="Black" />
+        <ActivityIndicator
+            HorizontalOptions="Center"
+            IsRunning="{Binding ShowTappedImgCommand.IsBusy}"
+            IsVisible="{Binding ShowTappedImgCommand.IsBusy}"
+            VerticalOptions="Center"
+            Color="DarkGray" />
+        <Image Source="{Binding ImageSource}" />
     </StackLayout>
 </ContentPage>

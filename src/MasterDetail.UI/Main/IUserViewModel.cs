@@ -49,6 +49,8 @@ namespace MasterDetail.UI.Main
 
         IAsyncCommand LoadImagesFromCacheCommand { get; set; }
 
+        IAsyncCommand UserInfoInitCommand { get; set; }
+
         IEnumerable<string> Gender { get; set; }
 
         IList<UserImagesViewModel> ImgItems { get; set; }
